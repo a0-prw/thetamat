@@ -1,0 +1,8 @@
+("Rusty" "Steel" t)
+("Dusty" "Carpet" nil)
+("Sandy" "Bay" nil)
+("Misty" "Valley" nil)
+("Storm" "Front" nil)
+("Dusty" "Floor" nil)
+("Gerry" "Mander" nil)
+("Hope" "Charity" nil)
