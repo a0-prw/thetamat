@@ -37,10 +37,10 @@ Thetamat has been developed and tested using SBCL on Linux, but it
 should run anywhere with a Common Lisp, perhaps with some fiddling
 with pathname stuff.  Only Firefox and Chrome(ium) browsers were
 developed for, so it is unlikely that it will work properly with IE.
-In addition, the current version of Firefox (25) suddenly stopped
-registering keypress events, so if you use the scratchpad, you will
-have to use the mouse and menu until Firefox magically starts working
-again (I am not going to fix it).
+In addition, the current version of Firefox (25) on Linux suddenly
+stopped registering keypress events, so if you use the scratchpad, you
+will have to use the mouse and menu until Firefox magically starts
+working again (I am not going to fix it).
 
 Installing: 
 
@@ -79,10 +79,18 @@ To delete a teacher (for example, a0_larry) evaluate (in package "AT"),
 This also deletes any pupils the teacher might have enrolled.
 
 You can run thetamat on a public server somewhere with appropriate
-settings for the IP address, etc in
-Infrastructure/package.lisp. Obviously, you will have to generate your
-own ssl key and certificate.  See ssl/var.sh.  Also, I recommend using
-dtach (apt-get install dtach on debian) to run thetamat as a "daemon".
+settings for the IP address, etc in Infrastructure/package.lisp. You
+will have to have appropriate rules for iptables including something like:
+
+iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 4040
+
+Since 4040 ( an unpriviledged port ) is used by default.
+
+Obviously, you will also have to generate your own ssl key and
+certificate.  See ssl/var.sh.  Also, I recommend using dtach (apt-get
+install dtach on debian) to run thetamat as a "daemon", with an
+appropriate crontab @REBOOT entry for restarting if the server goes
+down.
 
 The Scratchpad:
 
