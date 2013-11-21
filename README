@@ -44,9 +44,9 @@ working again (I am not going to fix it).
 
 Installing: 
 
-1) place Thetamat in ~/quicklisp/local-projects/autotutor/
+1) place Thetamat in ~/quicklisp/local-projects/thetamat/
 
-2) Change directory to ~/quicklisp/local-projects/autotutor/
+2) Change directory to ~/quicklisp/local-projects/thetamat/
 
 3) run sbcl --load mkcore.lisp (can take a long time)
 
