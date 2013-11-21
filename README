@@ -1,7 +1,7 @@
 This is free software which you use entirely at your own risk.
 
 Thetamat is 'The Teaching Assistant for Mathematics'.  It is a system
-of interactive lessons and exercises for teaching and demonstrating
+of interactive LESSONS and EXERCISES for teaching and demonstrating
 elementary mathematics.  The lessons and exercises are made available
 through a web-browser interface for use both in class teaching
 situations by subscribed teachers and in individual practice and
@@ -9,7 +9,7 @@ lesson-review by their enrolled pupils.
 
 The system guides pupils through the exercises, generating immediate
 feedback for the pupil and progress reports which can be accessed by
-the teacher.  The lessons provide both traditional text (containing
+the teacher.  The LESSONS provide both traditional text (containing
 explicit instruction) and appropriate interactive elements which are
 designed to support the understanding of the textual content.
 
@@ -28,7 +28,8 @@ The system is not intended to teach problem solving skills but aims to
 assist in the teaching of basic skills and knowledge which are
 prerequisite to developing mathematical problem-solving ability.
 
-The system is currently roughly complete to about grade 5 or 6.
+The system is currently roughly complete for calculation practice to
+about grade 5 or 6.
 
 Requirements:
 
@@ -44,11 +45,17 @@ again (I am not going to fix it).
 Installing: 
 
 1) place Thetamat in ~/quicklisp/local-projects/autotutor/
+
 2) Change directory to ~/quicklisp/local-projects/autotutor/
-3) run sbcl --load mkcore.lisp
+
+3) run sbcl --load mkcore.lisp (can take a long time)
+
 4) run sbcl --core at.core --load initialize-system.lisp
-5) Visit https://localhost:4040 and login as "a0_larry" with password "foo"
-6) Experiment
+
+5) Visit https://localhost:4040 and login as teacher "a0_larry" with
+password "foo" or pupil "a0_Hope" with password "foo"
+
+6) Experiment.
 
 Useage:
 
@@ -57,8 +64,8 @@ To setup new teachers evaluate (in package "AT")
 (define-teacher "Firstname" "Surnames" NPUPILS), 
 
 where NPUPILS is how many pupils the teacher should be allowed to
-enroll. This returns a unique system name derived from Firstname AND
-THEN DO, 
+enroll. (This returns a unique system name derived from Firstname) AND
+THEN EVALUATE,
 
 (setf (user-password "unique-system-name") (suggest-password)),
 
