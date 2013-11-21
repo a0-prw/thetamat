@@ -174,7 +174,7 @@
 (defmethod tbnl:acceptor-dispatch-request 
     ((acc tm-ssl-acceptor) (req tbnl:request))
   (setf *package* (find-package :autotutor))
-  (setf (tbnl:header-out 'x-frame-options) "SAMEORIGIN") ;;FIXME check
+  ;;(setf (tbnl:header-out 'x-frame-options) "SAMEORIGIN")
   (let* ((uri (tbnl:request-uri req))
          (split (split-sequence:split-sequence #\/ uri))
          (base-string (cadr split))

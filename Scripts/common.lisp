@@ -917,17 +917,7 @@
 
 (defun setup-mathjax ()
   (who:with-html-output-to-string (*standard-output* nil :indent t)
-    ;; (:script :type "text/javascript"
-    ;;          (who:fmt (ps:ps 
-    ;;     		(ps:chain 
-    ;;     		 ((ps:@ -math-jax -hub -config) 
-    ;;     		  (ps:create te-x
-    ;;                                  (ps:create extensions
-    ;;                                             (ps:array "AMSmath.js"
-    ;;                                                       "AMSsymbols.js"))))))))
-    (:script :type "text/javascript"
-	     :src "/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
-      (:script :type "text/javascript"
+    (:script :type "text/x-mathjax-config"
 	     (who:fmt (ps:ps 
 			(ps:chain 
 			 ((ps:@ -math-jax -hub -config) 
@@ -944,7 +934,13 @@
                                      (ps:create extensions
                                                 (ps:array "AMSmath.js"
                                                           "AMSsymbols.js"))
-                                     ))))))))
+                                     ))))))
+    (:script :type "text/javascript"
+             ;; If you want to serve MathJax from your own server then
+	     ;;download it into the www/MathJax/ directory and replace
+	     ;;the :src with the commented line below
+	     ;;"/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
+             :src "https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")))
 
 (defun banner ()
   (ps:who-ps-html  (:script  :type  "text/javascript"

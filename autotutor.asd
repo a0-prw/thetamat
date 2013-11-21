@@ -62,6 +62,7 @@ prerequisite to developing mathematical problem-solving ability."
                                        (:file "type-specs" ) 
                                        (:file "decimal" ) 
                                        (:file "util" )  
+                                       (:file "standalone")
                                        (:file "user" )
                                        (:file "record")
                                        (:file "pupil-report")
@@ -79,7 +80,7 @@ prerequisite to developing mathematical problem-solving ability."
                                        (:file "configure-document" )  
                                        (:file "document" )
                                        (:file "layout" )
-                                       (:file "standalone")
+                                       ;;
                                        (:file "page-utils" )
                                        ))
 		 (:module "Scripts" 

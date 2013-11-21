@@ -8,38 +8,6 @@
 (defvar *system-user-register-place* (merge-pathnames "system/register"))
 (defvar *system-user-register-lock* (bt:make-lock))
 
-;; (defvar *expiry-list* ())
-;; (defvar *expiry-list-place* (merge-pathnames "system/expiry-list.lisp"))
-;; (defvar *expiry-list-lock* (bt:make-lock))
-
-;; (defun get-expiry-list ()
-;;   (bt:with-lock-held (*expiry-list-lock*)
-;;     (copy-list *expiry-list*)))
-
-;; (defun initialize-expiry-list ()
-;;   "Only for use on system start, before server is running."
-;;   (when (probe-file *expiry-list-place*)
-;;     (with-open-file (sm *expiry-list-place* :direction :input)
-;;       (setf *expiry-list* (read sm)))))
-
-;; (defgeneric update-expiry-list (access name))
-
-;; (defmethod update-expiry-list ((access (eql 'addn)) (name string))
-;;   (bt:with-lock-held (*expiry-list-lock*)
-;;     (setf *expiry-list* (push name *expiry-list*))
-;;     (with-open-file (sm *expiry-list-place* 
-;;                         :direction :output :if-exists :supersede)
-;;       (format sm "~S" *expiry-list*))
-;;     *expiry-list*))
-
-;; (defmethod update-expiry-list ((access (eql 'remn)) (name string))
-;;   (bt:with-lock-held (*expiry-list-lock*)
-;;     (setf *expiry-list* (remove name *expiry-list* :test #'equal))
-;;     (with-open-file (sm *expiry-list-place* 
-;;                         :direction :output :if-exists :supersede)
-;;       (format sm "~S" *expiry-list*))
-;;     *expiry-list*)) 
-
 (defun place-register ()
   (unless (probe-file *system-user-register-place*)
     (cl-store:store *system-user-register* *system-user-register-place*)))
@@ -209,9 +177,6 @@ a security risk, only used on initial load."
 (defclass teacher (didactic-user)
   ((admin :initarg :admin :initform nil)
    (email :initarg :email :initform nil)
-   ;;(offer-id :initarg :offer-id)
-   ;;(token :initarg :token)
-   ;;(subscription :initarg :subscription :initform nil)
    (price-data :initarg :price-data :initform "")
    (nauthorized :initarg :nauth :initform 0)
    (latex-syntax :initform *default-latex-syntax*)
@@ -243,10 +208,7 @@ a security risk, only used on initial load."
   (:documentation "A user who is practising elementary mathematics in
   the system."))
 
-;;;;These macros are defined in safe-access-macros.lisp.  If cl-store
-;;;;is too slow, some other means of backup can easily be put in place
-;;;;by replacing a small amount of code there, and in password.lisp
-;;;;and here in user.lisp
+;;;;These macros are defined in safe-access-macros.lisp.  
 (define-common-user-objects (pupil teacher))
 
 (define-safe-access-for-user first-name first-name copy-seq)
@@ -284,20 +246,6 @@ a security risk, only used on initial load."
 
 ;;NON standard teacher-* stuff
 
-;; (defun foo ()
-;;   (with-dangerous-session-name 
-;;     (with-teacher-object dangerous-name
-;;       (list (slot-value tobj 'price-data)
-;;             (slot-value tobj 'nauthorized)
-;;             (slot-value tobj 'expires)))))
-
-;; (defun teacher-sub-details-list (system-name)
-;;   (with-teacher-object system-name
-;;     (let ((xp (slot-value teacher-object 'expires)))
-;;       (list (+ (slot-value teacher-object 'nauthorized)
-;;                (length (slot-value teacher-object 'pupils)))
-;;             (if xp t nil)))))
-
 (defun teacher-free-used (system-name)
   "Returns as 2 values the number of pupils which the teacher can
   enroll and the number of pupils which the teacher has enrolled."
@@ -316,23 +264,6 @@ a security risk, only used on initial load."
     (list (slot-value teacher-object 'work-on-screen)
           (slot-value teacher-object 'nauthorized)
           (length (slot-value teacher-object 'pupils)))))
-
-;; (defun teacher-dynamic-start-values (system-name)
-;;   (with-teacher-object system-name
-;;     (let ((xp (slot-value teacher-object 'expires)))
-;;       (list (slot-value teacher-object 'work-on-screen)
-;;             (slot-value teacher-object 'price-data)
-;;             (slot-value teacher-object 'nauthorized)
-;;             (length (slot-value teacher-object 'pupils))
-;;             (if xp t nil)
-;;             (slot-value teacher-object 'admin)))))
-
-;; (defun set-teacher-cancelled (system-name expiry-date)
-;;   (with-teacher-object system-name
-;;     (let ((tfile (teacher-file system-name)))
-;;       (setf (slot-value teacher-object 'admin) t
-;;             (slot-value teacher-object 'expires) expiry-date)
-;;       (cl-store:store teacher-object tfile))))
 
 (defun list-all-users ()
   (append (list-all-teachers) (list-all-pupils)))
@@ -354,27 +285,25 @@ a security risk, only used on initial load."
 
 (defsetf user-password set-user-password)
 
-(defun define-teacher (system-name first-name surname email nauthorized);; pridat)
-  (local-user-register 'addt system-name nil)
-  (let ((teacher (make-instance 
-                  'teacher
-                  :system-name system-name
-                  :first-name first-name
-                  :surname surname
-                  :first-access nil
-                  :last-access nil
-                  :groups nil
-                  :pupils nil
-                  :email email
-                  :nauth nauthorized
-                  ;;:price-data pridat
-                  ;;:expires (trial-period-expires-date)
-                  )))
-    ;;(update-expiry-list 'addn system-name)
-    (register-loaded-teacher-name system-name teacher);;here
-    (cl-store:store teacher 
-                    (ensure-directories-exist (teacher-file system-name)))
-    system-name))
+(defun define-teacher (first-name surname nauthorized);; pridat)
+  (let ((system-name (add-unique-name first-name)))
+    (local-user-register 'addt system-name nil)
+    (let ((teacher (make-instance 
+                    'teacher
+                    :system-name system-name
+                    :first-name first-name
+                    :surname surname
+                    :first-access nil
+                    :last-access nil
+                    :groups nil
+                    :pupils nil
+                    ;;:email email
+                    :nauth nauthorized
+                    )))
+      (register-loaded-teacher-name system-name teacher);;here
+      (cl-store:store teacher 
+                      (ensure-directories-exist (teacher-file system-name)))
+      system-name)))
 
 (defun define-pupil (teacher system-name first-name surname first-grade)
   (let* ((teacher-exists (local-user-register 'query teacher 'teacher)) ;;FIXME ?
