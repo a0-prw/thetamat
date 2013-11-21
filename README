@@ -30,20 +30,6 @@ prerequisite to developing mathematical problem-solving ability.
 
 The system is currently roughly complete to about grade 5 or 6.
 
-Background:
-
-Thetamat was part of a commercial educational software system which I
-was planning to market.  I ran out of time and money, and into some
-issues in my personal life, which forced me to shelve my business
-plans and find some work in the real world.  This accounts for some of
-the weirdness in the code, since what you have here has been ripped
-out of a larger system.  Other wierdnesses are probably the result of
-unrefined design decisions coupled with a severe lack of time.  In
-particular, I would change the crazy, insane topsort of the modules
-which is way over the top.  I started a saner way of defining modules,
-but did not have time to finish it. Look in Scripts/Lesson-texts for
-how it was unfolding.
-
 Requirements:
 
 Thetamat has been developed and tested using SBCL on Linux, but it
@@ -66,21 +52,54 @@ Installing:
 
 Useage:
 
-To setup new teachers do (in lisp in package "AT") 
+To setup new teachers evaluate (in package "AT") 
 
-(define-teacher "Firstname" "Surnames" NPUPILS), where NPUPILS is how
-many pupils the teacher should be allowed to enroll.
+(define-teacher "Firstname" "Surnames" NPUPILS), 
 
-To delete a teacher (for example, a0_larry) do (in lisp, in package
-"AT")
-(delete-teacher-locally "a0_larry")
+where NPUPILS is how many pupils the teacher should be allowed to
+enroll. This returns a unique system name derived from Firstname AND
+THEN DO, 
+
+(setf (user-password "unique-system-name") (suggest-password)),
+
+for a hard-to-crack password OR just give the password (a string)
+yourself.
+
+To delete a teacher (for example, a0_larry) evaluate (in package "AT"),
+
+(delete-teacher-locally "a0_larry"), 
+
+This also deletes any pupils the teacher might have enrolled.
 
 You can run thetamat on a public server somewhere with appropriate
-settings for the IP address, etc in Infrastructure/package.lisp
+settings for the IP address, etc in
+Infrastructure/package.lisp. Obviously, you will have to generate your
+own ssl key and certificate.  See ssl/var.sh.  Also, I recommend using
+dtach (apt-get install dtach on debian) to run thetamat as a "daemon".
+
+The Scratchpad:
+
+You don't have to use the scratchpad, and neither do your pupils
+unless you want them to or they want to.  It is a simple editor for 2d
+mathematical expressions, allowing them to "work on screen" instead of
+on paper. Press "?" in the scratchpad menu for a brief help screen.
 
 Bugs and extensions:
 
 You are welcome to fix bugs or write program extensions/improvements.
 Send a pull request, thanks.
 
+Background:
 
+Thetamat was part of a commercial educational software system which I
+was planning to market.  I ran out of time and money, and into some
+issues in my personal life, which forced me to shelve my business
+plans and find some work in the real world.  This accounts for some of
+the weirdness in the code, since what you have here has been ripped
+out of a larger system.  Other wierdnesses are probably the result of
+unrefined design decisions coupled with a severe lack of time.  In
+particular, I would change the crazy, insane topsort of the modules
+which is way over the top.  I started a saner way of defining modules,
+but did not have time to finish it. Look in Scripts/Lesson-texts for
+how it was unfolding.  Also, I was learning along the way, so I would
+do some stuff differently today.

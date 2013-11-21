@@ -119,7 +119,32 @@
 		     :media "screen")
               (:link :rel "stylesheet" :type "text/css" :href "/css/print.css" 
                      :media "print")
-	      (:link :rel "shortcut icon" :href "/img/favicon.ico"))
+	      (:link :rel "shortcut icon" :href "/img/favicon.ico")
+              (:script :type "text/x-mathjax-config"
+                       (who:fmt (ps:ps 
+                                  (ps:chain 
+                                   ((ps:@ -math-jax -hub -config) 
+                                    (ps:create tex2jax 
+                                               (ps:create  
+                                                inline-math 
+                                                (ps:array 
+                                                 (ps:array "$" "$") 
+                                                 (ps:array "\\(" "\\("))
+                                                preview
+                                                (ps:array
+                                                 "loading"))
+                                               te-x
+                                               (ps:create extensions
+                                                          (ps:array "AMSmath.js"
+                                                                    "AMSsymbols.js"))
+                                               ))))))
+              (:script :type "text/javascript"
+                       ;; If you want to serve MathJax from your own server then
+                       ;;download it into the www/MathJax/ directory and replace
+                       ;;the :src with the commented line below
+                       ;;"/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
+                       :src "https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
+              )
 	     (:body :id "page-container" 
                     :data-owner ""
                     :data-work-on-screen "false"
