@@ -28,7 +28,6 @@
   (declare (ignore token))
   (princ (concatenate 
 	  'string *script-seperator*
-	  ;;(setup-mathjax) *script-seperator*
 	  (banner) *script-seperator*
 	  (generate-prologue *pupil-script-processor*) *script-seperator*
 	  (common-script) *script-seperator*
@@ -39,7 +38,6 @@
   (declare (ignore token))
   (princ (concatenate
 	  'string *script-seperator*
-	  ;;(setup-mathjax) *script-seperator*
 	  (banner) *script-seperator*
 	  (generate-prologue *teacher-script-processor*) *script-seperator*
 	  (common-script) *script-seperator*
@@ -60,6 +58,7 @@
                      :media "print")
 	      (:link :rel "shortcut icon" :href "/img/favicon.ico")
               (:script :type "text/x-mathjax-config"
+                       
                        (who:fmt (ps:ps 
                                   (ps:chain 
                                    ((ps:@ -math-jax -hub -config) 
