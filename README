@@ -1,0 +1,86 @@
+This is free software which you use entirely at your own risk.
+
+Thetamat is 'The Teaching Assistant for Mathematics'.  It is a system
+of interactive lessons and exercises for teaching and demonstrating
+elementary mathematics.  The lessons and exercises are made available
+through a web-browser interface for use both in class teaching
+situations by subscribed teachers and in individual practice and
+lesson-review by their enrolled pupils.
+
+The system guides pupils through the exercises, generating immediate
+feedback for the pupil and progress reports which can be accessed by
+the teacher.  The lessons provide both traditional text (containing
+explicit instruction) and appropriate interactive elements which are
+designed to support the understanding of the textual content.
+
+Thetamat can supplement (and in some cases, depending on how the
+teacher chooses to use it, replace) a traditional school textbook.
+The program is not intended as a self-tutoring system, though more
+mature, motivated students with good reading ability may be able to
+use it in this way.
+
+Thetamat may be particularly useful in teaching groups of pupils of
+widely diverging levels of mathematical understanding, since it allows
+pupils to progress at their own speed, while helping the teacher to
+manage and monitor the pupils interaction with the teaching material.
+
+The system is not intended to teach problem solving skills but aims to
+assist in the teaching of basic skills and knowledge which are
+prerequisite to developing mathematical problem-solving ability.
+
+The system is currently roughly complete to about grade 5 or 6.
+
+Background:
+
+Thetamat was part of a commercial educational software system which I
+was planning to market.  I ran out of time and money, and into some
+issues in my personal life, which forced me to shelve my business
+plans and find some work in the real world.  This accounts for some of
+the weirdness in the code, since what you have here has been ripped
+out of a larger system.  Other wierdnesses are probably the result of
+unrefined design decisions coupled with a severe lack of time.  In
+particular, I would change the crazy, insane topsort of the modules
+which is way over the top.  I started a saner way of defining modules,
+but did not have time to finish it. Look in Scripts/Lesson-texts for
+how it was unfolding.
+
+Requirements:
+
+Thetamat has been developed and tested using SBCL on Linux, but it
+should run anywhere with a Common Lisp, perhaps with some fiddling
+with pathname stuff.  Only Firefox and Chrome(ium) browsers were
+developed for, so it is unlikely that it will work properly with IE.
+In addition, the current version of Firefox (25) suddenly stopped
+registering keypress events, so if you use the scratchpad, you will
+have to use the mouse and menu until Firefox magically starts working
+again (I am not going to fix it).
+
+Installing: 
+
+1) place Thetamat in ~/quicklisp/local-projects/autotutor/
+2) Change directory to ~/quicklisp/local-projects/autotutor/
+3) run sbcl --load mkcore.lisp
+4) run sbcl --core at.core --load initialize-system.lisp
+5) Visit https://localhost:4040 and login as "a0_larry" with password "foo"
+6) Experiment
+
+Useage:
+
+To setup new teachers do (in lisp in package "AT") 
+
+(define-teacher "Firstname" "Surnames" NPUPILS), where NPUPILS is how
+many pupils the teacher should be allowed to enroll.
+
+To delete a teacher (for example, a0_larry) do (in lisp, in package
+"AT")
+(delete-teacher-locally "a0_larry")
+
+You can run thetamat on a public server somewhere with appropriate
+settings for the IP address, etc in Infrastructure/package.lisp
+
+Bugs and extensions:
+
+You are welcome to fix bugs or write program extensions/improvements.
+Send a pull request, thanks.
+
+
