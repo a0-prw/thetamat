@@ -19,7 +19,7 @@
 
 (in-package :asdf)
 
-(defsystem "autotutor"
+(defsystem "thetamat"
 
     :description "Thetamat is 'The Teaching Assistant for
 Mathematics'.  It is a system of interactive lessons and exercises for
@@ -110,7 +110,6 @@ prerequisite to developing mathematical problem-solving ability."
                            (:file "pupil" ) 
                            (:file "login" ) 
                            (:file "teacher")
-                           ;;
                            (:file "html")
                            (:module "Lessons" 
                                     :serial t 

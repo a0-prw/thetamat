@@ -56,8 +56,7 @@
               (:link :rel "stylesheet" :type "text/css" :href "/css/print.css" 
                      :media "print")
 	      (:link :rel "shortcut icon" :href "/img/favicon.ico")
-              (:script :type "text/x-mathjax-config"
-                       
+              (:script :type "text/x-mathjax-config"                       
                        (who:fmt (ps:ps 
                                   (ps:chain 
                                    ((ps:@ -math-jax -hub -config) 

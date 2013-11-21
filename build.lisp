@@ -1,5 +1,5 @@
 (format t "~%Loading system.~%")
-(ql:quickload :autotutor :verbose t)
+(ql:quickload :thetamat :verbose t)
 
 (in-package :autotutor)
 
