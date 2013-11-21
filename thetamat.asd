@@ -110,6 +110,7 @@ prerequisite to developing mathematical problem-solving ability."
                            (:file "pupil" ) 
                            (:file "login" ) 
                            (:file "teacher")
+                           ;;
                            (:file "html")
                            (:module "Lessons" 
                                     :serial t 

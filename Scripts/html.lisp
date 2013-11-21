@@ -23,7 +23,6 @@
 
 (defgeneric user-page-scripts (token))
 
-;;FIXME remove spaces
 (defmethod user-page-scripts ((token (eql 'pupil)))
   (declare (ignore token))
   (princ (concatenate 
@@ -147,9 +146,7 @@
 	     (:body :id "page-container" 
                     :data-owner ""
                     :data-work-on-screen "false"
-                    ;;(if (pupil-work-on-screen name)
-                    ;;"true" "false")
-	      (:div :id "page"
+                    (:div :id "page"
 		    (:div :id "banner"
 			  (:h1 :class "bannertext" :id "stdh" "&Theta;MaT")
                           (:h1 :class "bannertext" :id "logout" "Logout"))
@@ -222,9 +219,9 @@
 
 (defvar *pupil-page* (funcall (generate-user-page 'pupil)))
 
-;;FIXME rem
-(defun redef (which)
-  (case which
-    ((teacher) (setf *teacher-page* (funcall (generate-user-page 'teacher))))
-    ((pupil) (setf *pupil-page* (funcall (generate-user-page 'pupil))))
-    (t (error "Unknown which: ~S" which))))
+;; ;;FIXME rem
+;; (defun redef (which)
+;;   (case which
+;;     ((teacher) (setf *teacher-page* (funcall (generate-user-page 'teacher))))
+;;     ((pupil) (setf *pupil-page* (funcall (generate-user-page 'pupil))))
+;;     (t (error "Unknown which: ~S" which))))
