@@ -122,6 +122,7 @@
 ;; ;; is running.
 
 (defun place-name-count-store ()
+  (ensure-directories-exist *name-count-store*)
   (unless (probe-file *name-count-store*)
     (cl-store:store *unique-name-count* *name-count-store*)))
 

@@ -28,6 +28,7 @@
 (defvar *system-user-register-lock* (bt:make-lock))
 
 (defun place-register ()
+  (ensure-directories-exist *system-user-register-place*)
   (unless (probe-file *system-user-register-place*)
     (cl-store:store *system-user-register* *system-user-register-place*)))
 

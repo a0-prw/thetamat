@@ -134,6 +134,7 @@ prerequisite to developing mathematical problem-solving ability."
                           :serial t 
                           :components 
                           ((:file "tbnl-config")
+                           (:file "dirconfig")
                            ))
                  (:file "if")
                  )

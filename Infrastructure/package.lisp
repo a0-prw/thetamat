@@ -40,11 +40,6 @@
 (defvar *autotutor-server*)
 (defvar *autotutor-server-port* 4040)
 
-;; frontpage (old name thetamat) 146.185.140.78 
-;; loginserver 	146.185.136.74 
-;; autotutor 	146.185.136.175
-
-
 (progn (if *in-production*
            
            (setf *autotutor-server* "a.b.c.d"
