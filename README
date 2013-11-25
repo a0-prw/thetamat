@@ -48,7 +48,8 @@ Installing:
 
 2) Change directory to ~/quicklisp/local-projects/thetamat/
 
-3) run sbcl --load mkcore.lisp (can take a long time)
+3) run sbcl --load mkcore.lisp (can take a long time - only necessary
+first time)
 
 4) run sbcl --core at.core --load initialize-system.lisp
 

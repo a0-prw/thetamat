@@ -50,7 +50,7 @@ assist in the teaching of basic skills and knowledge which are
 prerequisite to developing mathematical problem-solving ability."
 
     :version "0.1.4"
-    :author "Peter Wood, pete_wood@runbox.com"
+    :author "Peter Wood, peter@thetamat.net"
     :license " GPL3"
     :depends-on (:hunchentoot  
                  :flexi-streams 
