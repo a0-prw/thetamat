@@ -21,16 +21,18 @@
 
 ;;Replace with games
 (define-module 'mod-digs-nat
-    "The Numberline - 1"
-  "Introduction to the integer numberline, with addition and
-subtraction of positive digits with results a natural number."  
+    '((american-english "The Numberline - 1")
+      (danish "Tallinien - 1"))
+  '((american-english "Introduction to the integer numberline, with addition and subtraction of positive digits with results a natural number.")
+    (danish "Introduktion til tallinien med hele tal, med addition og subtraktion af positive cifre med resutat et naturligt tal."))
   nil
   :special-module t)
 
 (define-module 'mod-basic-add-nat
-    "Basic Addition"
-    "Introduction to the decimal position system with addition of
-numbers less than 20 with results a natural number."  
+    '((american-english "Basic Addition")
+      (danish "Grundlæggende Addition"))
+  '((american-english "Introduction to the decimal position system with addition of numbers less than 20 with results a natural number.")
+    (danish "Introduktion til titalssytemet med addition af tal under 20 med resultat et naturligt tal."))
 '(mod-digs-nat))
 
 (define-module 'mod-basic-sub-nat

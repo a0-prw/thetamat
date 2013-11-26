@@ -68,9 +68,9 @@
     (when found (error "Module exists already: ~S" mod))
     (when special-module (setf *special-modules* (push label *special-modules*)))
     (make-instance 'module
-                   :title title
+                   :title (lang title)
                    :label label
-                   :description description
+                   :description (lang description)
                    :dependencies dependencies)))
 
 (defun list-module-description (label)
