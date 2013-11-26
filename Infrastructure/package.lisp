@@ -61,7 +61,7 @@
 (defvar *default-latex-syntax*
   '((plus "+") (minus "-") (times "\\cdot") (divided-by "\\div") (dec ".")))
 
-(defvar *language* 'american-english)
+(defvar *language* 'danish)
 ;;can be 'danish 'british-english or 'american-english
 
 (setf (who:html-mode) :html5)

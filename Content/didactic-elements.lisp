@@ -34,7 +34,8 @@
     'digadd ;;tag
     "Addition" ;;caption
     "$x+y, \\; 0\\leq x,y < 10, \\; x,y \\in \\mathbb{N}$" ;;short description
-  "Addition with nonnegative digits." ;;long description
+    '((american-english "Addition with nonnegative digits.")
+      (danish "Addition med ikke-negative cifre"));;long description
   0 ;;menu-level
   1 ;;required pass (1 == 100%)
   (define-indirect-action
@@ -59,11 +60,24 @@
 ;;   2 ;;max input length
 ;;   '(mod-digs-nat)) ;;home module
 
-(define-didactic-element 
+;; (define-didactic-element 
+;;     'digadd-nz
+;;     "Addition"
+;;   "$x+y, \\; 0<x,y< 10, \\; x,y \\in \\mathbb{N}$"
+;;   "Addition with positive digits."
+;;   0
+;;   1
+;;   #'(lambda () (make-sum (digit-nz-nat) (op-plus)))
+;;   'natural
+;;   2
+;;   nil)
+
+(define-didactic-element
     'digadd-nz
     "Addition"
   "$x+y, \\; 0<x,y< 10, \\; x,y \\in \\mathbb{N}$"
-  "Addition with positive digits."
+  '((american-english "Addition with positive digits.")
+    (danish "Addition med ikke-negative cifre."))
   0
   1
   #'(lambda () (make-sum (digit-nz-nat) (op-plus)))
@@ -75,8 +89,8 @@
     'tiny-nc-plus
     "Addition"
   "$x+y,\\; 0\\leq x,y<20, \\; x,y \\in \\mathbb{N}$"
-  "Addition of natural numbers less than 20 (no power of ten regrouping,
-  ie, no so-called carrying)."
+  '((american-english "Addition of natural numbers less than 20 (no power of ten regrouping, ie, no so-called carrying).")
+    (danish "Addition af naturlige tal under 20 uden tier-overgang."))
   0
   9/10
   (define-indirect-action 
@@ -107,7 +121,8 @@
     'tiny-c-plus
     "Addition"
   "$x+y,\\; 0\\leq x,y<20, \\; x,y \\in \\mathbb{N}$"
-  "Addition of natural numbers less than 20 (possibly with power of ten regrouping in the units, ie, so-called carrying)."
+  '((american-english "Addition of natural numbers less than 20 (possibly with power of ten regrouping in the units, ie, so-called carrying).")
+    (danish "Addition af naturlige tal under 20 muligvis med tier-overgang."))
   0
   9/10
   (define-indirect-action 
@@ -124,7 +139,8 @@
     '%tiny-c-plus
     "Addition"
   "$x+y,\\; 0\\leq x,y<20, \\; x,y \\in \\mathbb{N}$"
-  "This is for use on server. Not recommended."
+  '((american-english "This is for use on server. Not recommended.")
+    (danish "Til brug på serveren, intern funktion."))
   0
   9/10
   #'(lambda () (make-sum (tiny-c-nat) (op-plus)))
@@ -136,8 +152,8 @@
     'small-c-plus
     "Addition"
   "$x+y,\\; 0\\leq x,y<50, \\; x,y \\in \\mathbb{N}$"
-  "Addition of natural numbers less than 50 (possibly with power of
-  ten regrouping, ie, so-called carrying)."  
+  '((american-english "Addition of natural numbers less than 50 (possibly with power of ten regrouping, ie, so-called carrying).")
+    (danish "Addition af naturlige tal under 50 muligvis med tier-overgang."))
   0 
   9/10
   #'(lambda () (make-sum (small-c-nat) (op-plus)))
@@ -150,7 +166,8 @@
     'addnat-lt20
     "Addition"
   "$x+y,\\; 0\\leq x,y<20, \\; x,y \\in \\mathbb{N}$"
-  "Addition with natural numbers less than 20."
+  '((american-english "Addition with natural numbers less than 20.")
+    (danish "Addition af naturlige tal under 20."))
   0
   9/10
   #'(lambda () (make-sum (tiny-nat) (op-plus)))
@@ -162,7 +179,8 @@
     'addnat-lt100
     "Addition"
   "$x+y,\\; 0\\leq x,y<100, \\; x,y \\in \\mathbb{N}$"
-  "Addition with natural numbers less than 100."
+  '((american-english "Addition with natural numbers less than 100.")
+    (danish "Addition af naturlige tal under 100."))
   0
   9/10
   #'(lambda () (make-sum (medium-nat) (op-plus)))
@@ -174,7 +192,8 @@
     'addnat-lt1000
     "Addition"
   "$x+y,\\; 0\\leq x,y<1000, \\; x,y \\in \\mathbb{N}$"
-  "Addition with natural numbers less than 1000."
+  '((american-english "Addition with natural numbers less than 1000.")
+    (danish "Addition af naturlige tal under 1000."))
   0
   9/10
   #'(lambda () (make-sum (big-nat) (op-plus)))
@@ -186,7 +205,8 @@
     'addnat-3lt10000
     "Addition"
   "$x+y+z,\\; 0\\leq x,y,z<10000, \\; x,y,z \\in \\mathbb{N}$"
-  "Addition with three natural numbers less than 10000."
+  '((american-english "Addition with three natural numbers less than 10000.")
+    (danish "Addition af tre naturlige tal under 10000."))
   0
   8/10
   #'(lambda () (make-sum (verybig-nat) (op-plus) t))
@@ -199,9 +219,11 @@
 
 (define-indirect-didactic-element
     'digsubn
-    "Subtraction"
+    '((american-english "Subtraction")
+      (danish "Subtraktion"))
     "$x-y=z\\mid  x,y<10, \\; x,y,z \\in \\mathbb{N}$"
-  "Subtraction of digits with result a natural number."
+    '((american-english "Subtraction of digits with result a natural number.")
+      (danish "Subtraktion af cifre med resultat et naturligt tal."))
   0
   1
   (define-indirect-action  
@@ -220,9 +242,11 @@
 
 (define-indirect-didactic-element
     'teen-sub-nb
-    "Subtraction"
+    '((american-english "Subtraction")
+      (danish "Subtraktion"))
     "$x-y=z\\mid 10\\leq x,y < 20, \\; x,y,z\\in \\mathbb{N}$"
-  "Subtraction (not requiring the regrouping of a higher power of ten, ie, so-called borrowing) of numbers between 10 and 20 with result a natural number."
+    '((american-english "Subtraction (not requiring the regrouping of a higher power of ten, ie, so-called borrowing) of numbers between 10 and 20 with result a natural number.")
+      (danish "Subtraktion af tal mellem 10 og 20 med resultat et naturligt tal, uden behov for tier-omgruppering."))
   0
   1
   ;;#'(lambda () (make-sum (digit-tsub-nat) (op-minus)))
@@ -265,9 +289,11 @@
 
 (define-indirect-didactic-element  
     'subnat-lt20 ;;(make-sum (tiny-eint-nat) (op-minus)))
-    "Subtraction"
+    '((american-english "Subtraction")
+      (danish "Subtraktion"))
   "$x-y=z\\mid x,y < 20, \\; x,y,z\\in \\mathbb{N}$"
-  "Subtraction of natural numbers less than 20 with the result a natural number (possibly with regrouping of higher power of ten, ie, so-called borrowing)."
+  '((american-english "Subtraction of natural numbers less than 20 with the result a natural number (possibly with regrouping of higher power of ten, ie, so-called borrowing).")
+    (danish "Subtraktion af naturlige tal under 20 med resultat et naturligt tal, muligvis med behov for tier-omgruppering."))
   0
   1
   #'(lambda () 
@@ -290,11 +316,11 @@
 
 (define-didactic-element
     'subnat-easy
-    "Subtraction"
+    '((american-english "Subtraction")
+      (danish "Subtraktion"))
   "$x-y=z\\mid x,y < 100, \\; x,y,z\\in \\mathbb{N}$"
-  "Subtraction of natural numbers less than 100 with all the digits of
-the subtrahend less than or equal to the corresponding digits of the
-minuend (ie, no regrouping of powers of ten or so-called borrowing)."
+  '((american-english "Subtraction of natural numbers less than 100 with all the digits of the subtrahend less than or equal to the corresponding digits of the minuend (ie, no regrouping of powers of ten or so-called borrowing).")
+    (danish "Subtraktion af naturlige tal under 100 med resultat et naturligt tal, uden behov for tier-omgruppering."))
   0
   9/10
   #'(lambda () (make-sum (medium-eint-nat) (op-minus)))
@@ -304,10 +330,11 @@ minuend (ie, no regrouping of powers of ten or so-called borrowing)."
 
 (define-didactic-element
     'small-b-minus
-    "Subtraction"
+    '((american-english "Subtraction")
+      (danish "Subtraktion"))
   "$x-y,\\; 50<x<100,y<50, \\; x,y \\in \\mathbb{N}$"
-  "Subtraction of natural numbers with result less than 50 (with
-  regrouping of power of ten, ie, so-called borrowing)."
+  '((american-english "Subtraction of natural numbers with result less than 50 (with regrouping of power of ten, ie, so-called borrowing).")
+    (danish "Subtraktion af naturlige tal med resultat mindre end 50, med behov for tier-omgruppering."))
   0
   9/10
   #'(lambda () (make-sum (small-b-nat) (op-minus)))
@@ -318,10 +345,11 @@ minuend (ie, no regrouping of powers of ten or so-called borrowing)."
 
 (define-didactic-element
     'subnat-z-100
-    "Subtraction"
+    '((american-english "Subtraction")
+      (danish "Subtraktion"))
   "$x-y,\\; x=100,y<100, \\; x,y \\in \\mathbb{N}$"
-  "Subtraction of natural numbers with result less than 100 (with
-  repeated regrouping of power of ten, ie, so-called borrowing)."
+  '((american-english "Subtraction of natural numbers with result less than 100 (with repeated regrouping of power of ten, ie, so-called borrowing).")
+    (danish "Subtraktion af naturlige tal med resultat under 100, med behov for tier-omgruppering."))
   0
   9/10
   #'(lambda () (make-sum (medium-z-nat) (op-minus)))
@@ -331,9 +359,11 @@ minuend (ie, no regrouping of powers of ten or so-called borrowing)."
 
 (define-didactic-element
     'subnat-lt100
-    "Subtraction"
+    '((american-english "Subtraction")
+      (danish "Subtraktion"))
   "$x-y=z\\mid x,y < 100, \\; x,y,z\\in \\mathbb{N}$"
-  "Subtraction of natural numbers less than 100 with result a natural number (possibly with regrouping of higher power of ten, ie, so-called borrowing)."
+  '((american-english "Subtraction of natural numbers less than 100 with result a natural number (possibly with regrouping of higher power of ten, ie, so-called borrowing).")
+    (danish "Subtraktion af naturlige tal mindre end 100 med resultat et naturligt tal, muligvis med behov for tier-omgruppering."))
   0
   9/10
   #'(lambda () (make-sum (medium-int-nat) (op-minus)))
@@ -343,9 +373,11 @@ minuend (ie, no regrouping of powers of ten or so-called borrowing)."
 
 (define-didactic-element
     'subnat-lt1000
-    "Subtraction"
+    '((american-english "Subtraction")
+      (danish "Subtraktion"))
     "$x-y=z\\mid x,y < 1000, \\; x,y,z\\in \\mathbb{N}$"
-  "Subtraction of natural numbers less than 1000 with result a natural number (possibly with regrouping of higher power of ten, ie, so-called borrowing)."
+    '((american-english "Subtraction of natural numbers less than 1000 with result a natural number (possibly with regrouping of higher power of ten, ie, so-called borrowing).")
+      (danish "Subtraktion af naturlige tal mindre end 1000 med resultat et naturligt tal, muligvis med behov for tier-omgruppering."))
   0
   9/10
   #'(lambda () (make-sum (big-int-nat) (op-minus)))
@@ -356,10 +388,11 @@ minuend (ie, no regrouping of powers of ten or so-called borrowing)."
 
 (define-didactic-element
     'nline20
-    "Placement"
+    '((american-english "Placement")
+      (danish "Placering"))
   "$x+y=z \\mid x,y<10, x,y,z\\in \\mathbb{Z}$"
-  "Placement on the numberline between -20 and 20 at a given distance
-from a given number"
+  '((american-english "Placement on the numberline between -20 and 20 at a given distance from a given number")
+    (danish "Placering på tallinien mellem -20 og 20 af et givet tal på et givet afstand."))
   0
   1
   #'(lambda () (make-nline (digit-int-nline) (before-or-after)))
@@ -371,7 +404,8 @@ from a given number"
     'addint20
     "Addition"
     "$x+y,  \\; \\lvert x \\rvert ,\\lvert y \\rvert \\leq 20, \\; x,y\\in \\mathbb{Z}$"
-  "Addition and subtraction of integers between -20 and 20."
+    '((american-english "Addition and subtraction of integers between -20 and 20.")
+      (danish "Addition og subtraktion af hele tal mellem -20 og 20."))
   0
   9/10
   #'(lambda () (make-sum (tiny-int) (op-plus)))
@@ -385,7 +419,8 @@ from a given number"
     'adddec-lt10
     "Addition"
   "$x+y, \\;  x,y\\leq 10, \\; x,y\\in \\mathbb{Q}^{+}$"
-  "Addition using the decimal representation of positive rational numbers less than 10.  Only tenths (ie, 1 decimal place)."
+  '((american-english "Addition using the decimal representation of positive rational numbers less than 10.  Only tenths (ie, 1 decimal place).")
+    (danish "Addition af decimale repræsenationer af positive rationale tal under 10.  Kun tiendedele (dvs, et tal efter kommaet.)"))
   2
   9/10
   #'(lambda () (make-sum (digit-podec) (op-plus)))
@@ -395,9 +430,11 @@ from a given number"
 
 (define-didactic-element
     'subdec-lt10
-    "Subtraction"
+    '((american-english "Subtraction")
+      (danish "Subtraktion"))
     "$x-y, \\; x,y\\leq10, \\;  x,y\\in \\mathbb{Q}$"
-    "Subtraction using the decimal representation of rational numbers less than 10.  Only tenths (ie, 1 decimal place)."
+    '((american-english "Subtraction using the decimal representation of rational numbers less than 10.  Only tenths (ie, 1 decimal place).")
+      (danish "Subtraktion af decimale ræpresentationer af rationale tal under 10. Kun tiendedele (dvs. et tal efter kommaet.)"))
     2
     9/10
     #'(lambda () (make-sum (digit-negdec) (op-minus)))
@@ -411,9 +448,11 @@ from a given number"
 
 (define-didactic-element
     'table
-    "Multiplication"
+    '((american-english "Multiplication")
+      (danish "Multiplikation"))
     "$x\\cdot y, \\;  xy\\leq 10, \\; x,y\\in \\mathbb{N}^{+}$"
-  "Multiplication of digits and 10."
+    '((american-english "Multiplication of digits and 10.")
+      (danish "Multiplikation af cifre og 10."))
   1
   1
   #'(lambda () (make-product (table) (op-times)))
@@ -424,21 +463,25 @@ from a given number"
 
 (define-didactic-element
     'mul-1-2nat
-    "Multiplication"
+    '((american-english "Multiplication")
+      (danish "Multiplikation"))
     "$x\\cdot y, \\; x<10, y<100, x,y\\in \\mathbb{N}$"
-  "Multiplication of digit by a natural number less than 100."
-  1
-  9/10
-  #'(lambda () (make-product (digit-by-2nat) (op-times)))
-  'natural
-  3
-  '(mod1-mult))
+    '((american-english "Multiplication of digit by a natural number less than 100.")
+      (danish "Multiplikation af et ciffer og et naturligt tal under 100.")) 
+    1
+    9/10
+    #'(lambda () (make-product (digit-by-2nat) (op-times)))
+    'natural
+    3
+    '(mod1-mult))
 
 (define-didactic-element
     'mul-digints
-    "Multiplication"
+    '((american-english "Multiplication")
+      (danish "Multiplikation"))
   "$x\\cdot y, \\; \\lvert x \\rvert ,\\lvert y \\rvert<10, \\; x,y\\in \\mathbb{Z}, $"
-  "Multiplication of 2 integer digits."
+  '((american-english "Multiplication of 2 integer digits.")
+    (danish "Multiplikation af 2 cifre som er hele tal."))
   1
   1
   #'(lambda () (make-product (digit-int) (op-times)))
@@ -448,9 +491,11 @@ from a given number"
 
 (define-didactic-element
     'mul-2-2nat
-    "Multiplication"
+    '((american-english "Multiplication")
+      (danish "Multiplikation"))
   "$x\\cdot y, \\; x,y<100, x,y\\in \\mathbb{N}$" 
-  "Multiplication of 2 natural numbers less than 100."
+  '((american-english "Multiplication of 2 natural numbers less than 100.")
+    (danish "Multiplikation af to naturlige tal under 100."))
   1
   9/10
   #'(lambda () (make-product (medium-nat) (op-times)))
@@ -460,9 +505,11 @@ from a given number"
 
 (define-didactic-element
     'mul-2-2int
-    "Multiplication"
+    '((american-english "Multiplication")
+      (danish "Multiplikation"))
      "$x\\cdot y, \\;  \\lvert x \\rvert ,\\lvert y \\rvert<100, \\; x,y\\in \\mathbb{Z}$"
-  "Multiplication of 2 integers with absolute values less than 100."
+     '((american-english "Multiplication of 2 integers with absolute values less than 100.")
+       (danish "Multiplikation af to hele tal med absolutte værdier under 100."))
   1
   9/10
   #'(lambda () (make-product (medium-int) (op-times)))
@@ -474,7 +521,8 @@ from a given number"
     'div-int-tinyint
     "Division"
      "$xy\\div y, \\;  \\lvert x \\rvert ,\\lvert y \\rvert<20, \\; x,y\\in \\mathbb{Z}$"
-  "Division of the product of 2 integers between -20 and 20, by one of the integers."
+     '((american-english "Division of the product of 2 integers between -20 and 20, by one of the integers.")
+       (danish "Division af produktet af to hele tal mellem -20 og 20 med et af tallene."))
   1
   9/10
   #'(lambda () (make-product (tiny-div-int) (op-divided-by)))
@@ -486,7 +534,8 @@ from a given number"
     'div-int-mediumint
     "Division"
      "$xy\\div y, \\;  \\lvert x \\rvert ,\\lvert y \\rvert<100, \\; x,y\\in \\mathbb{Z}$"
-  "Division of the product of 2 integers between -100 and 100, by one of the integers."
+     '((american-english "Division of the product of 2 integers between -100 and 100, by one of the integers.")
+       (danish "Division af to hele tal mellem -100 og 10 med et af tallene."))
   1
   9/10
   #'(lambda () (make-product (medium-div-int) (op-divided-by)))
@@ -497,9 +546,11 @@ from a given number"
 
 (define-didactic-element
     'mul-digit-podec
-    "Multiplication"
+    '((american-english "Multiplication")
+      (danish "Multiplikation"))
     "$x\\cdot y, \\; x,y\\in \\mathbb{Q}^{+}$"
-    "Multiplication of the decimal representation of 2 positive rationals (only tenths, ie, max. 1 decimal place)."
+    '((american-english "Multiplication of the decimal representation of 2 positive rationals (only tenths, ie, max. 1 decimal place).")
+      (danish "Multiplikation af de decimale ræpresentationer af to positive rationale tale (kun tiendedele, dvs. maks. et tal efter kommaet)."))
     2
     9/10
     #'(lambda () (make-product (digit-podec) (op-times)))
@@ -509,9 +560,11 @@ from a given number"
 
 (define-didactic-element
     'mul-digit-negdec
-    "Multiplication"
+    '((american-english "Multiplication")
+      (danish "Multiplikation"))
     "$x\\cdot y, \\; x,y\\in \\mathbb{Q}$"
-    "Multiplication of the  decimal representation of 2 rationals (only tenths, ie, max. 1 decimal place)."
+    '((american-english "Multiplication of the  decimal representation of 2 rationals (only tenths, ie, max. 1 decimal place).")
+      (danish "Multiplikation af de decimale ræpresentationer af to rationale tal (kun tiendeele, dvs. maks. et tal efter kommaet."))
     2
     9/10
     #'(lambda () (make-product (digit-negdec) (op-times)))
@@ -525,7 +578,8 @@ from a given number"
     'add-sub-digit-pfrac
     "Addition"
   "$\\frac{a}{b}+\\frac{c}{d} \\; a,b,c,d < 10 \\in \\mathbb{N}, \\frac{a}{b}, \\frac{c}{d}\\in \\mathbb{Q}$"
-  "Addition of 2 proper fractions with numerator and denominator digits"
+  '((american-english "Addition of 2 proper fractions with numerator and denominator digits")
+    (danish "Addition af to ægte brøker med nævner og tæller cifre."))
   2
   9/10
   #'(lambda () (make-sum (digit-prop-frac-signed) (op-plus)))

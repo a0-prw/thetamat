@@ -19,6 +19,13 @@
 
 (in-package :autotutor)
 
+(defun lang (thing)
+  (if (stringp thing)
+      thing
+      (let ((found (assoc *language* thing)))
+        (if found (cadr found)
+            (cadr (car thing))))))
+
 (defvar *translations-dictionary*
   (make-hash-table))
 
@@ -34,7 +41,7 @@
   (am-eng-entry ...))  Where 'new' is any other languages.  This
  function writes a file containing thelist of #idx\"am-eng-entry\"#
  items which have the correct index for use in the code."
-  (with-open-file (stream "translations/translations.txt" 
+  (with-open-file (stream "Infrastructure/Translations/translations.txt" 
                             :direction :output
                             :if-does-not-exist :create
                             :if-exists :supersede)

@@ -267,6 +267,26 @@
 	(unless de (error 'didactic-element-does-not-exist de))
 	(operation-operator (funcall (action el)))))
 
+;; (defun define-didactic-element
+;; ;;how many to do in placement program is defined in document.lisp
+;;     (tag caption short-description long-description spmenu-level pass
+;;      action atype reply modules)
+;;   ;; (let ((found (get-didactic-element tag)))
+;;   ;;   (if found (error 'didactic-element-exists :name tag) 27/02/2013
+;; 	(let ((de (make-instance 'didactic-element
+;; 				 :tag tag
+;;                                  :pass pass
+;; 				 :caption caption
+;; 				 :sd short-description
+;; 				 :ld long-description
+;;                                  :spmenu-level spmenu-level
+;; 				 :action action
+;;                                  :atype atype
+;;                                  :modules modules
+;; 				 :reply reply)))
+;;           (add-didactic-element de)
+;;           de))
+
 (defun define-didactic-element
 ;;how many to do in placement program is defined in document.lisp
     (tag caption short-description long-description spmenu-level pass
@@ -276,9 +296,9 @@
 	(let ((de (make-instance 'didactic-element
 				 :tag tag
                                  :pass pass
-				 :caption caption
+				 :caption (lang caption)
 				 :sd short-description
-				 :ld long-description
+				 :ld (lang long-description)
                                  :spmenu-level spmenu-level
 				 :action action
                                  :atype atype
@@ -297,9 +317,9 @@
 				 :tag tag
                                  :pass pass
                                  :direct-action nil
-				 :caption caption
+				 :caption (lang caption)
 				 :sd short-description
-				 :ld long-description
+				 :ld (lang long-description)
                                  :spmenu-level spmenu-level
 				 :action action
                                  :atype atype
@@ -335,9 +355,9 @@
                                  :pass pass
                                  :direct-action t
                                  :display nil
-				 :caption caption
+				 :caption (lang caption)
 				 :sd short-description
-				 :ld long-description
+				 :ld (lang long-description)
                                  :spmenu-level spmenu-level
 				 :action action
                                  :atype atype
