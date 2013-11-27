@@ -23,7 +23,8 @@
 ;;score-code is defined in dom-utils.lisp
 
 (define-special-content mod-digs-nat 
-    (("Addition" "Subtraction") #'pupil-basic-add) "SCRIPT" 
+    (("Addition" #.(lang '((american-english "Subtraction")
+                           (danish "Subtraktion")))) #'pupil-basic-add) "SCRIPT" 
     (start 
      voluntary-game gen-add-pairs gen-sub-pairs gen-teen-sub-pairs
      gen-digit-sub-pairs reset-game-record game-record pupil-record-object
@@ -109,14 +110,16 @@
       (if game-name game-name
           (if (not best-time)
               "Addition"
-              "Subtraction"))))
+              #.(lang '((american-english "Subtraction")
+                        (danish "Subtraktion")))))))
   
   get-best-time
   (with-slots (best-time) pupil-record
     (lambda (pupil-record)
       (let ((bt best-time))
         (if (not bt)
-            "No best time yet"
+            #.(lang '((american-english "No best time yet")
+                      (danish "Ingen bedste tid endnu")))
             bt))))
             ;;"FIXME: parse time stamp"))))
   
@@ -304,7 +307,8 @@
                            (cond ((string= name "Addition")
                                   (setf current-questions 
                                         (ps:array (jsn sub-pairs))))
-                                 ((string= name "Multiplication")
+                                 ((string= name #.(lang '((american-english "Multiplication")
+                                                          (danish "Multiplikation"))))
                                   (setf current-questions 
                                         (ps:array (jsn div-pairs))))
                                  (t (throw (strcat "Game name error: "
@@ -331,18 +335,24 @@
                                  (setf best-time fin)
                                  (setf improvements
                                        (if improvements (1+ improvements) 1))
-                                 (my-alert (strcat "Well done! New best time: " 
+                                 (my-alert (strcat #.(lang '((american-english "Well done! New best time: ")
+                                                             (danish "Flot! Ny bedste tid: ")))
                                                    fin) uprc-fun))
-                               (my-alert "Well done! No errors!"
+                               (my-alert #.(lang '((american-english "Well done! No errors!")
+                                                   (danish "Godt gået! Ingen fejl!")))
                                          uprc-fun))
                            (let ((msg (if best-time ;;if best-time is
                                                     ;;not false, timer
                                                     ;;is displaying
-                                          (strcat "Well done! No errors!"
+                                          (strcat #.(lang '((american-english "Well done! No errors!")
+                                                            (danish "Godt gået! Ingen fejl!")))
                                                   (ps:lisp #\Newline)
-                                                  "Your time was: " 
-                                                  fin " seconds.")
-                                          "Well done! No errors!")))
+                                                  #.(lang '((american-english "Your time was: ")
+                                                            (danish "Din tid var: ")))
+                                                  fin #.(lang '((american-english " seconds.")
+                                                                (danish " sekunder."))))
+                                          #.(lang '((american-english "Well done! No errors!")
+                                                    (danish "Gody gået! Ingen fejl!"))))))
                              (when test (setf best-time fin))
                              (my-alert msg uprc-fun)))))                          
                     (empty-repeats
@@ -352,11 +362,21 @@
                     (t 
                      (let* ((se (text-content-of 
                                  (doc-get-el-by-id "errors-field")))
-                            (phrase1 (quantify-noun se "errors" true))
-                            (phrase2 (quantify-noun se "sums")))
+                            (phrase1 #.(if (equal *language* 'danish)
+                                           '(strcat se " fejl")
+                                           '(quantify-noun se "errors" true)))
+                            (phrase2 #.(if (equal *language* 'danish)
+                                           '(if (> se 1)
+                                             (strcat se " stykker")
+                                             (strcat se " styk"))
+                                           '(quantify-noun se "sums"))))
                        (my-alert (strcat ;;Game not over there are repeats
-                                  "You had " phrase1 " in " phrase2
-                                  " , which will now be repeated.")
+                                  #.(lang '((american-english "You had ")
+                                            (danish "Du havde ")))
+                                  phrase1 #.(lang '((american-english " in ")
+                                                    (danish " i ")))phrase2
+                                  #.(lang '((american-english ", which will now be repeated.")
+                                            (danish ", som nu bliver gentaget."))))
                                  (lambda ()
                                    (setf stack bad-answers
                                          bad-answers (ps:array))
@@ -377,10 +397,15 @@
               (if test
                   (ajax_update_module owner update callback)
                   (funcall game-stop))
-              (my-alert (strcat "You completed the game with " 
-                                (quantify-noun nerrors "errors")
-                                ".  Try again!") (lambda ()
-                                                   (funcall game-stop))))))))
+              (my-alert (strcat #.(lang '((american-english "You completed the game with ")
+                                          (danish "Du fuldførte spillet med ")))
+                                #.(if (equal *language* 'danish)
+                                      '(strcat nerrors " fejl")
+                                      '(quantify-noun nerrors "errors"))
+                                #.(lang '((american-english ".  Try again!")
+                                          (danish ". Forsøg igen!"))))
+                        (lambda ()
+                          (funcall game-stop))))))))
   restore-page-state
   (lambda ()
     (let ((gh (doc-get-el-by-id "game-holder"))
@@ -412,9 +437,11 @@
             (let* ((game-name (text-content-of (doc-get-el-by-id "game-field")))
                    (pupil-record (cond ((string= game-name "Addition")
                                         add-score)
-                                       ((string= game-name "Subtraction")
+                                       ((string= game-name #.(lang '((american-english "Subtraction")
+                                                                     (danish "Subtraktion"))))
                                         sub-score)
-                                       ((string= game-name "Multiplication")
+                                       ((string= game-name #.(lang '((american-english "Multiplication")
+                                                                     (danish "Multiplikation"))))
                                         mul-score)
                                        ((string= game-name "Division")
                                         div-score)
@@ -493,8 +520,9 @@
   (lambda (inp sans lans)
     (remove-event-no-capture inp "keydown" cq-handler)
     (append-para-text (doc-get-el-by-id "game-message")
-                      "Correct error to continue")
-    (setf (value inp) "")
+                      #.(lang '((american-english "Correct error to continue")
+                                (danish "Ret din fejl for at fortsætte"))))
+    (Setf (value inp) "")
     (add-event-no-capture inp "keydown" 
                           (funcall make-error-correction-handler sans lans)))
 
@@ -519,7 +547,8 @@
                                       new-mouthg))
                     (prune-tree-from-nth badc 0)
                     (remove-child com p)
-                    (append-para-text com "Ok. Error corrected!")
+                    (append-para-text com #.(lang '((american-english "Ok. Error corrected!")
+                                                    (danish "Ok. fejl rettet!"))))
                     (funcall make-question))
                   (setf (value this) ""))
               (setf (value this) input))))))      
@@ -654,7 +683,8 @@
                (cond ((string= game-name "Addition")
                       (setf current-questions (ps:array))
                       (push (jsn add-pairs) current-questions))
-                     ((or add (string= game-name "Subtraction"))
+                     ((or add (string= game-name #.(lang '((american-english "Subtraction")
+                                                           (danish "Subtraktion")))))
                       (setf current-questions (array))
                       (push (jsn sub-pairs) current-questions))
                      (t 
@@ -724,20 +754,33 @@
       (make-info-display stat
                          ("status" 
                           nil 
-                          ("game" "game-name" "Game:" "game-field")
+                          ("game" "game-name" #.(lang '((american-english "Game:")
+                                                        (danish "Spil:")))
+                                  "game-field")
                           ("mode" "mode-name" "Mode:" "mode-field")
-                          ("best-time" "best-time-name" "Best Time:" "best-time-field")
+                          ("best-time" "best-time-name" #.(lang '((american-english "Best Time:")
+                                                                  (danish "Bedste tid:")))
+                                       "best-time-field")
                           
-                          ("remaining" "remaining-name" "Remaining:" "remaining-field")
-                          ("correct" "correct-name" "Correct:" "correct-field")
-                          ("errors" "errors-name" "Errors:" "errors-field")
-                          ("time" "time-name" "Time:" "time-field")))))
+                          ("remaining" "remaining-name" #.(lang '((american-english "Remaining:")
+                                                                  (danish "Tilbage:")))
+                                       "remaining-field")
+                          ("correct" "correct-name" #.(lang '((american-english "Correct:")
+                                                              (danish "Korrekt:")))
+                                     "correct-field")
+                          ("errors" "errors-name" #.(lang '((american-english "Errors:")
+                                                            (danish "Fejl:")))
+                                    "errors-field")
+                          ("time" "time-name" #.(lang '((american-english "Time:")
+                                                        (danish "Tid:")))
+                                  "time-field")))))
 
   pupil-record-object
   (lambda (gname)
     (cond ((string= gname "Addition")
            add-score)
-          ((string= gname "Subtraction")
+          ((string= gname #.(lang '((american-english "Subtraction")
+                                    (danish "Subtraktion"))))
            sub-score)
           (t (my-alert (strcat "NYI: " gname)))))
 
@@ -753,13 +796,17 @@
             (tf (doc-get-el-by-id "time-field"))
             (gname (funcall get-game-name)))
         (setf (text-content-of gf) gname
-              (text-content-of mf) (if test "Play" "Train")
+              (text-content-of mf) (if test #.(lang '((american-english "Play")
+                                                      (danish "Spil")))
+                                       #.(lang '((american-english "Train")
+                                                 (danish "Træn"))))
               (text-content-of bf) (funcall get-best-time 
                                             (funcall pupil-record-object gname))
               (text-content-of rf) (length stack)
               (text-content-of cf) "0"
               (text-content-of ef) "0"
-              (text-content-of tf) "Not timing"))))
+              (text-content-of tf) #.(lang '((american-english "Not timing")
+                                             (danish "Tager ikke tid")))))))
   
   
   game-start
@@ -767,7 +814,8 @@
     (with-slots (incorrect-arrow correct-arrow) svg-canvas
       (funcall fill-stack)
       (if (not-defined (aref stack 0))
-          (my-alert "No questions selected in training mode!")
+          (my-alert #.(lang '((american-english "No questions selected in training mode!")
+                              (danish "Ingen spørgsmål valgt i trænings mode!"))))
           (let ((parent (parent-node this))
                 (train (parent-node (doc-get-el-by-id "set-train")))
                 (stop (make-button "stop-game" "Stop"))
@@ -834,9 +882,11 @@
       (setf (checked on) true)
       (set-attribute off "id" "set-train")
       (append-child ond on)
-      (append-text ond "Play")
+      (append-text ond #.(lang '((american-english "Play")
+                                 (danish "Spil"))))
       (append-child offd off)
-      (append-text offd "Practice")
+      (append-text offd #.(lang '((american-english "Practice")
+                                  (danish "Træn"))))
       (append-children form ond offd)
       form))
 
@@ -875,7 +925,8 @@
     (let ((form (aref (get-elements-by-tag-name
                        (doc-get-el-by-id "config-left") "form") 0))
           (but1div (parent-node (doc-get-el-by-id "set-test")))
-          (quitb (make-button "quit-button" "Quit")))
+          (quitb (make-button "quit-button" #.(lang '((american-english "Quit")
+                                                      (danish "Stop spil"))))))
       (add-event-no-capture quitb "click" cancel-game-play)
       (insert-before form quitb but1div)))
 
@@ -934,7 +985,8 @@
   voluntary-game
   (lambda (addsc subsc)
     (with-slots (add-pairs sub-pairs mul-pairs div-pairs) training-pairs
-      (cond ((eql game-name "Subtraction")
+      (cond ((eql game-name #.(lang '((american-english "Subtraction")
+                                      (danish "Subtraktion"))))
              (funcall set-local-sub-score subsc)
              (funcall set-local-add-score addsc)
              (push (jsn sub-pairs) current-questions)
@@ -946,7 +998,8 @@
              (push (jsn add-pairs) current-questions)
              (setf sub-pairs (funcall gen-sub-pairs))
              (setf add-pairs (funcall gen-add-pairs)))
-            ((eql game-name "Multiplication") ;;EXTEND MUL DIV
+            ((eql game-name #.(lang '((american-english "Multiplication")
+                                      (danish "Multiplikation")))) ;;EXTEND MUL DIV
              (push (jsn mul-pairs) current-question);;Must set both
              (setf mul-pairs (funcall gen-mul-pairs)))
             ((eql game-name "Division")
@@ -1080,7 +1133,9 @@
     (let ((bb (funcall create-blackboard))
           (butholder (div-id "start-buttons"))
           (stbut (make-button "no-help" "Start" ("click" start)))
-          (hbut (make-button "yes-help" "Help" ("click" intro))))
+          (hbut (make-button "yes-help" #.(lang '((american-english "Help")
+                                                  (danish "Hjælp")))
+                             ("click" intro))))
       (append-children butholder stbut hbut)
       (append-child (dots document body) bb)
       (set-display bb "inline")
@@ -1090,13 +1145,15 @@
   (lambda () 
     (let ((bb (dgebid "intro-text-holder"))
           (bdiv (dgebid "intro-button-holder"))
-          (but (make-button "end-intro" "Continue"))
+          (but (make-button "end-intro" #.(lang '((american-english "Continue")
+                                                  (danish "Fortsæt")))))
           (h1 (create-element "h1")))
       (remove-class bb "shift-right")
       ;;(append-child bb h1)
       (insert-before bb h1 (dgebid "intro-text-display"))
       (append-child bdiv but)
-      (setf (text-content-of h1) "How to play")
+      (setf (text-content-of h1) #.(lang '((american-english "How to play")
+                                           (danish "Instrukser"))))
       (add-event-no-capture but "click" start)
       (set-inner-html (doc-get-el-by-id "intro-text-display") intro-text)))
 
@@ -1655,21 +1712,27 @@
 
 (define-lesson mod-digs-nat
     :stepif (special-lesson-module
-             ((:p "Welcome to the first lesson in the program.")
-              (:p "Usually, when you use this program, each part will start
+             ((:p #.(lang '((american-english "Welcome to the first lesson in the program.")
+                            (danish "Velkommen til den første lektion i programmet."))))
+              (:p #.(lang '((american-english "Usually, when you use this program, each part will start
      with an explanation of something and will continue with exercises
      for you to do.")
-   (:p "This part is a little different.")
-   (:p "Instead, after this lesson, you will play some learning
+                            (danish "Normalt vil være del af programmet start med en forklaring og vil blive fulgt af øvelser."))))
+   (:p #.(lang '((american-english "This part is a little different.")
+                 (danish "Denne første del er lidt anderledes."))))
+   (:p #.(lang '((american-english "Instead, after this lesson, you will play some learning
      games which can help you to memorise the basic facts of adding
      small numbers from 0 to 9, and subtracting from small numbers
      below 18.")
-   (:p "When you have won in the games, you will automatically go
+                 (danish "Efter denne lektion vil du komme til nogle spil so kan hjælpe dig med at lære at plusse og minusse små tal."))))
+   (:p #.(lang '((american-english "When you have won in the games, you will automatically go
    forward in the program.")
-   (:p "Usually you must press the right arrow to continue in the
+                 (danish "Når du har vundet i spillene, komme du automatisk videre i programmet, men måske skal du spille dem mange gange før du vinder!"))))
+   (:p #.(lang '((american-english "Usually you must press the right arrow to continue in the
    lesson.  Sometimes, you will have to do something else to continue
    with a lesson, so it is important either that you read the text, or
-   that your teacher or a someone else has read it for you.")))
+   that your teacher or a someone else has read it for you.")
+                 (danish "Normalt, skal man trykke højre pil for at komme videre i lektionen.  Nogle gange skal du gøre noget andet, så det er vigtigt at du læse teksten, eller få din lærer eller en anden til at læse det for dig."))))))
 
     :step ((:p #.(lang '((american-english "There are two parts to learning some new piece of mathematics:")
                          (danish "Der er to dele til indlæring af noget nyt i matematik:"))))
