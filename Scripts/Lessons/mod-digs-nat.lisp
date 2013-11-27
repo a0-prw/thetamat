@@ -1020,22 +1020,42 @@
    (who:with-html-output-to-string (str)
      
      ;;(:h1 "How to play.")
-     (:ul (:li (:strong "Click start.") "  A sum will appear.")
-          (:li (:strong "Write the answer") " with the keyboard.  You
+     (:ul (:li (:strong #.(lang '((american-english "Click start.")
+                                  (danish "Klik start")))) 
+               #.(lang '((american-english "  A sum will appear.")
+                         (danish " En sum vil dukke op."))))
+          (:li (:strong #.(lang '((american-english "Write the answer")
+                                  (danish "Skriv svaret")))) 
+               #.(lang '((american-english " with the keyboard.  You
           do not have to press enter.")
-          (:li "If you make a mistake, you must "(:strong "correct the
-          sum") " to continue.")
-          (:li "When you have done all the sums, the ones you
-     got wrong will " (:strong "be repeated.")))
+                         (danish " med tastaturet.  Du skal ikke trykker 'enter'."))))
+          (:li #.(lang '((american-english "If you make a mistake, you must ")
+                         (danish "Hvis du laver en fejl, skal du ")))
+               (:strong #.(lang '((american-english "correct the
+          sum")
+                                  (danish "rette summen")))) #.(lang '((american-english " to continue.")
+                                                                       (danish " før du kan fortsætte."))))
+          (:li #.(lang '((american-english "When you have done all the sums, the ones you
+     got wrong will ")
+                         (danish "Når du har lavet alle summene, hvis du fik nogle forkerte vil de blive ")))
+               (:strong #.(lang '((american-english "be repeated.")
+                                  (danish "gentaget."))))))
      
-     (:p "Your first goal is to get all the sums right, with no
+     (:p #.(lang '((american-english "Your first goal is to get all the sums right, with no
      mistakes: First with plus, then minus.")
-     (:p "When your first goal has been achieved, you can play the
-     games again by pressing the " (:q "games") " button on your
+                   (danish "Dit første mål er at få alle summene rigtigt, uden fejl: Først med addition, så subtraktion."))))
+     (:p #.(lang '((american-english "When your first goal has been achieved, you can play the
+     games again by pressing the ")
+                   (danish "Når dit første mål er opnået, kan du spille igen ved at trykke på ")))
+         (:q #.(lang '((american-english "games")
+                       (danish "spil")))) #.(lang '((american-english " button on your
      page.")
-     (:p "If you play them again, a timer will be displayed.  Your
+                                                    (danish " knappen på din side."))))
+     (:p #.(lang '((american-english "If you play them again, a timer will be displayed.  Your
      goal can then be to improve your times with no mistakes.")
-     (:p "First concentrate on getting them all right.")))
+                   (danish "Hvis du spiller igen, vil en timer blive vist.  Målet kan så være at forbedre din tid, uden fejl."))))
+     (:p #.(lang '((american-english "First concentrate on getting them all right.")
+                   (danish "Først skal du få alle rigtigt."))))))
     
   start 
   (lambda (ev)
@@ -1205,8 +1225,13 @@
                             (desc (let* ((p (create-element "p"))
                                          (tn (make-text-node 
                                               (strcat 
-                                               t1 " is shown in the numberline.  Subtract " t2 " by clicking on the circles in the square."
-                                               "This  represents the sum: "
+                                               t1 #.(lang '((american-english " is shown in the numberline.  Subtract ")
+                                                            (danish " er vist i tallinien. Subtraher ")))
+                                               t2 
+                                               #.(lang '((american-english " by clicking on the circles in the square.")
+                                                         (danish " ved at klikke på cirklerne i kasserne.")))
+                                               #.(lang '((american-english "This  represents the sum: ")
+                                                         (danish "Dette ræpresenterer summen: ")))
                                                "$" val "$"))))
                                     (append-child p tn)
                                     (append-child ltd p)
@@ -1240,15 +1265,21 @@
                           (bar2 (funcall create-length-line 
                                          svg2 (ems (* skip width2)) "green" t2))
                           (desc (append-para-text ltd 
-                                                  (strcat "The colored bars represent the sum: $" val "$.  Click on the bars to add them in the numberline.") true)))
+                                                  (strcat #.(lang '((american-english "The colored bars represent the sum: $")
+                                                                    (danish "De farvelagte længder ræpresenterer summen: $")))
+                                                          val #.(lang '((american-english "$.  Click on the bars to add them in the numberline.")
+                                                                        (danish "$. Klik på længderne for at addere dem i tallinien."))))
+                                                  true)))
                      (set-attribute svg1 "class" "lsum1")
                      (set-attribute svg2 "class" "lsum2")
                      ;;EVENT handling from here
                      (funcall init-count-lines (strcat which ":q") 
                               2 (strcat 
-                                 "This has shown $" val "=" ans "$
-                                     by placing lines of the correct
-                                     lengths in the numberline."))
+                                 #.(lang '((american-english "This has shown $")
+                                           (danish "Dette har vist $")))
+                                 val "=" ans 
+                                 #.(lang '((american-english "$ by placing lines of the correct  lengths in the numberline.")
+                                           (danish "$ ved at placere de korrekte længder på tallinien.")))))
                      (add-event-no-capture bar1 "click" add-line-on-nl)
                      (add-event-no-capture bar2 "click" add-line-on-nl)
                      (append-child ltd lsum-holder))))
@@ -1294,7 +1325,12 @@
                           (bar2 (funcall create-length-line svg2 
                                          (ems (* skip width2)) "green" t2 "subtrahend"))
                           (desc (append-para-text ltd 
-                                                  (strcat "The colored bars represent the subtraction: $" sum "$.  Click on the first bar.") true)))
+                                                  (strcat #.(lang '((american-english "The colored bars represent the subtraction: $")
+                                                                    (danish "De farvelagte længder ræpresenterer subtraktionen: $")))
+                                                          sum 
+                                                          
+                                                          #.(lang '((american-english "$.  Click on the first bar.")
+                                                                    (danish "$. Klik på den første længde.")))) true)))
                      (set-attribute svg1 "class" "lsum1")
                      (set-attribute svg2 "class" "lsum2")
                      (append-child ltd lsum-holder)
@@ -1337,9 +1373,8 @@
                                                  next-lesson-text)
                            (add-event-no-capture larr "click" 
                                                  previous-lesson-text)
-                           (let ((tn (make-text-node "You can
-                           continue or go back a step to try again with
-                           other numbers."))
+                           (let ((tn (make-text-node #.(lang '((american-english "You can continue or go back a step to try again with other numbers.")
+                                                               (danish "Du kan fortsætte eller gå tilbage et skridt for at prøve igen med andre tal.")))))
                                  (p (create-element "p"))
                                  (ltd (doc-get-el-by-id "lesson-text-display")))
                              (append-child p tn)
@@ -1385,7 +1420,9 @@
                  (remove-event-no-capture line "click" place-first-term)
                  (append-child mp line)
                  (funcall record-garbage mp line)
-                 (append-para-text ltd "Click on the second bar." false)
+                 (append-para-text ltd #.(lang '((american-english "Click on the second bar.")
+                                                 (danish "Klik på den anden længde.")))
+                                   false)
                  (add-event-no-capture (doc-get-el-by-id "subtrahend") 
                                        "click" place-second-term)))
 
@@ -1411,12 +1448,15 @@
                  (remove-event-no-capture line "click" place-second-term)
                  (append-child pm line)
                  (funcall record-garbage pm line)
-                 (append-para-text ltd (strcat "This has shown $" 
+                 (append-para-text ltd (strcat #.(lang '((american-english "This has shown $")
+                                                         (danish "Dette har vist $")))
                                                t1 "-" t2 "=" diff 
-                                               "$ in the numberline.  You can
-                                        see that the first bar is "
-                                               diff " longer than the
-                                        second.") true)
+                                               #.(lang '((american-english "$ in the numberline.  You can
+                                        see that the first bar is ")
+                                                         (danish "$ i tallinien.  Du kan se, at det første længde er ")))
+                                               diff 
+                                               #.(lang '((american-english " longer than the second.")
+                                                         (danish " længere end den anden.")))) true)
                  (funcall restore-default-rl-handlers )))
 
              add-line-on-nl ;; Slot
@@ -1506,8 +1546,10 @@
                           (desc (append-para-text 
                                  ltd 
                                  (strcat 
-                                  "Click on the circles in the squares. "
-                                  "The squares represent the sum: "
+                                  #.(lang '((american-english "Click on the circles in the squares. ")
+                                            (danish "Klik på cirklerne i kasserne. ")))
+                                  #.(lang '((american-english "The squares represent the sum: ")
+                                            (danish "Kasserne ræpresentere summen: ")))
                                   "$" val "$") true)))
                        (set-attribute svg1 "class" "dsum1")
                        (set-attribute svg2 "class" "dsum2")
@@ -1629,160 +1671,274 @@
    with a lesson, so it is important either that you read the text, or
    that your teacher or a someone else has read it for you.")))
 
-   :step ((:p "There are two parts to learning some new piece of mathematics:")
-           (:ul (:li (:strong "DO") " something new.")
-                (:li (:strong "UNDERSTAND") " something new."))
-           (:p "Sometimes, learning something new in mathematics requires
+    :step ((:p #.(lang '((american-english "There are two parts to learning some new piece of mathematics:")
+                         (danish "Der er to dele til indlæring af noget nyt i matematik:"))))
+           (:ul (:li (:strong #.(lang '((american-english "DO")
+                                        (danish "GØR")))) 
+                     #.(lang '((american-english " something new.")
+                               (danish " noget nyt."))))
+                (:li (:strong #.(lang '((american-english "UNDERSTAND")
+                                        (danish "FORSTÅ")))) 
+                     #.(lang '((american-english " something new.")
+                               (danish " noget nyt.")))))
+           (:p #.(lang '((american-english "Sometimes, learning something new in mathematics requires
      going backwards and forwards between doing something and trying
-     to understand it, " (:strong "many") " times.")
-          (:p "So do not become discouraged if you do not understand
-          something immediately."))
+     to understand it, ")
+                         (danish "Nogle gange, er det nødvendigt at gå frem og tilbage mellem at gøre noget nyt og forsøge at forstå det, ")))
+                       (:strong #.(lang '((american-english "many")
+                                          (danish "mange"))) 
+                                #.(lang '((american-english " times.")
+                                          (danish " gange.")))))
+          (:p #.(lang '((american-english "So do not become discouraged if you do not understand
+          something immediately.")
+                        (danish "Så bliv ikke ked af det, hvis ikke du forstå noget første, eller anden eller tredie gang.")))))
           
      
-    :step ( (:p "Very often, a good way of thinking about anything to
-    do with most types of numbers is with a numberline.") (:p "Press
-    the right arrow to see a numberline."))
+    :step ((:p #.(lang '((american-english 
+                          "Very often, a good way of thinking about anything to
+    do with most types of numbers is with a numberline.")
+                         (danish 
+                          "Det er ofte nyttigt at bruge ideen om en tallinie, når du forsøge at forstå et problem med tal."))))
+           (:p #.(lang '((american-english 
+                          "Press the right arrow to see a numberline.")
+                         (danish 
+                          "Tryk på højre pil for at se en tallinie.")))))
+
     :display (funcall numberline "mod-digs-nat-nl" -20 20 1 "#000000" 0.125)
-    :step ( (:p "A numberline is just a picture of how typical numbers
-    'fit together'.") (:p "You can see a 'zero' in the middle of the
-    numberline."))
+    
+    :step ((:p #.(lang '((american-english 
+                          "A numberline is just a picture of how typical numbers 'fit together'.")
+                         (danish 
+                          "En tallinie er bare et billede af hvordan tal 'passer sammen'."))))
+           (:p #.(lang '((american-english 
+                          "You can see a 'zero' in the middle of the numberline.")
+                         (danish 
+                          "Du kan se et nul i midten af tallinien.")))))
+    
     :replace-default-next-step 
     ((handle-nl-click0 "nl-mark(0)")
-     "Click the zero mark on the numberline to continue")
-    :step ((:p "Good. Each mark after zero shows the next number, so we
+     #.(lang '((american-english "Click the zero mark on the numberline to continue")
+               (danish "Klik på nul-stregen på tallinien for at fortsætte."))))
+    :step ((:p #.(lang '((american-english "Good. Each mark after zero shows the next number, so we
     get '0, 1, 2, ...' (The dots mean the numbers continue 'forever',
-    and thats why there are arrows on the line)") (:p "The numbers to
-    the right of zero are called " (:strong "positive") " numbers.  We
-    can also go to the left of zero to get " (:strong "negative") "
-    numbers. So we have '..., -2, -1, 0'.  When we say aloud these
-    numbers to the left of zero we say 'minus 2', 'minus 1' and so on.
-    Sometimes people say, 'negative 1' instead."))
+    and thats why there are arrows on the line)")
+                         (danish "Ok.  Hver streg efter nul viser positionen af det næste tal, så vi har '0, 1, 2, ...' (prikkerne betyder at tallene fortsætter i det uendelige, og derfor har vi pilene for enden af tallinien.)"))))
+           (:p #.(lang '((american-english "The numbers to the right of zero are called ")
+                         (danish "Tallene til højre for nul blive kaldt for ")))
+               (:strong #.(lang '((american-english "positive")
+                                  (danish "positive"))))
+               #.(lang '((american-english " numbers.  We
+    can also go to the left of zero to get ")
+                         (danish " tal.  Vi kan også se tal til venstre for nul.  De hedder "))) 
+               (:strong "negative") 
+               #.(lang '((american-english " numbers. So we have '..., -2, -1, 0'.  When we say aloud these numbers to the left of zero we say 'minus 2', 'minus 1' and so on. Sometimes people say, 'negative 1' instead.")
+                         (danish " tal.  Så vi har '..., -2, -1, 0'.  Når vi siger tallene højt, siger vi 'minus 2', minus 1', og så videre.")))))
     :globals ((:variable "nlneg1" (funcall numberline-id (funcall random-int -9 -1))))
     :replace-default-next-step
     ((handle-nl-clickneg (funcall use-var "nlneg1"))
      (strcat 
-      "Click on the " (funcall number-from-nlid 
-                               (funcall use-var "nlneg1")) " mark to continue."))
-    :step ((:p "We will come
-    back to the negative numbers in a later lesson.  For now, we will
-    be concentrating on the " (:strong "positive") " numbers."))
+      #.(lang '((american-english "Click on the ")
+                (danish "Klik på "))) 
+      (funcall number-from-nlid 
+               (funcall use-var "nlneg1")) 
+      #.(lang '((american-english " mark to continue.")
+                (danish " stregen for at fortsætte.")))))
+    :step ((:p #.(lang '((american-english "We will come  back to the negative numbers in a later lesson.  For now, we will be concentrating on the ")
+                         (danish "Vi vil vende tilbage til de negative tal i en senere lektion.  For nu, vil vi have fokus på de ")))
+               (:strong "positive") 
+               #.(lang '((american-english " numbers.")
+                         (danish " tal."))) ))
     :globals ((:variable "nlpos1" (funcall numberline-id 
                                            (funcall random-int 1 9))))
     :replace-default-next-step
     ((handle-nl-clickpos (funcall use-var "nlpos1"))
-     (strcat "Click on the " 
+     (strcat #.(lang '((american-english "Click on the ")
+                       (danish "Klik på ")))
              (funcall number-from-nlid 
-                      (funcall use-var "nlpos1")) " mark to continue."))
-    :step ( (:p "When you are counting things, you can imagine pairing
-    that thing with its number on the numberline.")  (:p "If you are
-    pairing more things with the numbers, then you
-    are " (:strong "adding.") "  If you are removing things from the
-    numberline, then you are " (:strong "subtracting.")) (:p "Here
-    follows an example of adding in this way."))
+                      (funcall use-var "nlpos1")) 
+             #.(lang '((american-english " mark to continue.")
+                       (danish " stregen for at fortsætte.")))))
+    :step ( (:p #.(lang '((american-english "When you are counting things, you can imagine pairing
+    that thing with its number on the numberline.")
+                          (danish "Når du tæller ting, kan du forestille dig, at du samler en ting med dets tal på tallinien i par."))))
+            (:p #.(lang '((american-english "If you are pairing more things with the numbers, then you are ")
+                          (danish "Hvis du tilføjer flere ting i par, så laver du ")))
+                (:strong #.(lang '((american-english "adding.")
+                                   (danish "addition.")))) 
+                #.(lang '((american-english "  If you are removing things from the numberline, then you are ")
+                          (danish " Hvis du fjerner ting fra tallinien, så laver du ")))
+                (:strong #.(lang '((american-english "subtracting.")
+                                   (danish "subtraktion."))))) 
+            (:p #.(lang '((american-english "Here follows an example of adding in this way.")
+                          (danish "Her følger et eksempel på addition hvor du tilføjer ting til tallinien.")))))
     :using-q&a-vars
     ((:q&a-var "ddsum1" digadd)
      (progn
        (funcall init-circle-counter (parse-int (funcall use-var "ddsum1:a"))
-                (strcat "This has shown $"
+                (strcat #.(lang '((american-english "This has shown $")
+                                  (danish "Dette har vist $")))
                         (funcall use-var "ddsum1:q") "="
-                        (funcall use-var "ddsum1:a") "$ in the numberline."))
+                        (funcall use-var "ddsum1:a") 
+                        #.(lang '((american-english "$ in the numberline.")
+                                  (danish "$ i tallinien")))))
         (funcall discrete-digit-sum-nl "t1" "t2" "ddsum1:q")))
-    :step ( "Here follows an example with subtraction")
+    :step ( #.(lang '((american-english "Here follows an example with subtraction.")
+                      (danish "Her følger et eksempel med subtraktion."))))
     :using-q&a-vars
     ((:q&a-var "ddsub1" digsubn)
      (progn
        (funcall init-circle-counter 
                 (parse-int (funcall second-term "ddsub1:q"))
-                (strcat "This has shown $"
+                (strcat #.(lang '((american-english "This has shown $")
+                                  (danish "Dette har vist $")))
                         (funcall use-var "ddsub1:q") "="
-                        (funcall use-var "ddsub1:a") "$ in the numberline."))
+                        (funcall use-var "ddsub1:a") 
+                        #.(lang '((american-english "$ in the numberline.")
+                                  (danish "$ i tallinien.")))))
        (funcall discrete-digit-sub-nl "t1" "ddsub1:q")))
-    :step ( (:p "Since we do not " (:strong "only") " use numbers to
+    :step ( (:p #.(lang '((american-english "Since we do not ")
+                          (danish "Eftersom vi ikke ")))
+                (:strong #.(lang '((american-english "only")
+                                   (danish "kun")))) 
+                #.(lang '((american-english " use numbers to
     count things, another way of thinking with the numberline, is to
     imagine that you are measuring something with it.  This means
-    seeing the numberline like a ruler or a tape-measure.") (:p "If
-    you think this way, then " (:strong "adding") " numbers is like
+    seeing the numberline like a ruler or a tape-measure.")
+                          (danish " bruger tal til at tælle ting, er en anden måde at bruge tallinien at forestille dig, at du måler noget med den.  Det betyder, at du ser tallinien som en linial eller et måleband.")))) 
+            (:p #.(lang '((american-english "If you think this way, then ")
+                          (danish "Hvis du tænker på denne måde, så er ")))
+                (:strong #.(lang '((american-english "adding")
+                                   (danish "addition")))) 
+                #.(lang '((american-english " numbers is like
     placing lengths represented by those numbers one after the other
     and measuring the whole thing with the numberline to see what you
-    get."))
-    :step ((:p "Here follows an example of seeing addition as
-    placing lengths together."))
+    get.")
+                          (danish " af tal ligesom at placere længder som svarer til tallene i forlængelse af hinanden og så måle det hele med tallinien for at se hvor langt det hele er.")))))
+    :step ((:p #.(lang '((american-english "Here follows an example of seeing addition as
+    placing lengths together.")
+                         (danish "Her følger et eksempel på addition som placering af længder i forlængelse af hinanden.")))))
     :using-q&a-vars
     ((:q&a-var "mdsum1" digadd-nz)
      (funcall add-lengths-nl "t1" "t2" "mdsum1"))
-    :step ((:p "When thinking of addition as placing lengths together,
+    :step ((:p #.(lang '((american-english "When thinking of addition as placing lengths together,
     it is quite easy to see, that it does not matter which length you
-    place first, since the whole length remains the same.") (:p "That
-    means that if we have a plus sign between two numbers, we can swap
-    the numbers around if we want to.") (:p "Also, If we had 3 numbers
-    to add, it would not matter which lengths we placed together
-    first") (:p "This means we are free to choose any 2 numbers to add
-    first."))
-    :step ( (:p "If we want to " (:strong "subtract") " one number
-    from another one, this is like finding
-    the " (:strong "difference") " in their lengths.") (:p "With
-    subtraction we are measuring how much the " (:strong "first") "
-    length is longer than the second so it
-    is " (:strong "important") " which number comes first (unless the
+    place first, since the whole length remains the same.")
+                         (danish "Når du tænker på addition som placering af længder i forlængelse, er det temmelig nemt at se, at det ikke betyder noget hvilken længde du placere først, eftersom hele længden er det samme i begge tilfælde.")))) 
+           (:p #.(lang '((american-english "That means that if we have a plus sign between two numbers, we can swap the numbers around if we want to.")
+                         (danish "Det betyder at hvis vi har et plus tegn mellem to tal, så kan vi bytte rundt på tallene uden at ændre resultatet."))))
+           (:p #.(lang '((american-english "Also, If we had 3 numbers to add, it would not matter which lengths we placed together first")
+                         (danish "Og hvis vi havde tre tal at addere, ville rækkefølgen af tallene ikke betyder noget heller.")))) 
+           (:p #.(lang '((american-english "This means we are free to choose any 2 numbers to add first.")
+                         (danish "Derfor, når vi addere, må vi frit vælge hvilke 2 tal vi først lægger sammen.")))))
+    :step ( (:p #.(lang '((american-english "If we want to ")
+                          (danish "Hvis vi gerne vil ")))
+                (:strong #.(lang '((american-english "subtract")
+                                   (danish "subtrahere"))))
+                #.(lang '((american-english " one number from another one, this is like finding the ")
+                          (danish "et tal fra en anden, er det som at finde ")))
+                (:strong #.(lang '((american-english "difference")
+                                   (danish "forskellen"))))
+                #.(lang '((american-english " in their lengths.")
+                          (danish " i deres længder"))))
+            (:p #.(lang '((american-english "With subtraction we are measuring how much the ")
+                          (danish "Med subtraktion, måler vi hvor meget den ")))
+                (:strong #.(lang '((american-english "first")
+                                   (danish "første")))) 
+                #.(lang '((american-english " length is longer than the second so it
+    is ")
+                          (danish " er længere end den anden, og derfor er det ")))
+                (:strong #.(lang '((american-english "important")
+                                   (danish "vigtigt"))))
+                #.(lang '((american-english " which number comes first (unless the
     numbers are the same, of course, since then there is no
-    difference).") (:p "This means that if we have a minus sign
-    between 2 numbers, we " (:strong "cannot") " swap them
-    around.") (:p "This will make more sense when you learn about
-    negative numbers, but for now, just remember that it is
-    important."))
-    :step ((:p "Here follows an example of seeing a subtraction
-    as the difference of two lengths."))
+    difference).")
+                          (danish " hvilket tal vi tager først (medmindre tallene er de samme for så er der ingen forskel)"))))
+            (:p #.(lang '((american-english "This means that if we have a minus sign
+    between 2 numbers, we ")
+                          (danish "Det betyder, at hvis vi har et minus tegn mellem to tal, må vi ")))
+                (:strong #.(lang '((american-english "cannot")
+                                   (danish "ikke"))))
+                #.(lang '((american-english " swap them around.")
+                          (danish " bytte rundt på tallene."))))
+            (:p #.(lang '((american-english "This will make more sense when you learn about negative numbers, but for now, just remember that it is important.")
+                          (danish "Dette vil give bedre mening nå du lærer om negative tal.  For nu, husk at det er en vigtig forskel mellem addition og subtraktion.")))))
+    :step ((:p #.(lang '((american-english "Here follows an example of seeing a subtraction as the difference of two lengths.")
+                         (danish "Her følger et eksempel på at se subtraktion som forskellen i to længder.")))))
     :using-q&a-vars
     ((:q&a-var "mdsub1" digsubn)
      (funcall sub-lengths-nl "t1" "t2" "mdsub1"))
-    :step ( (:p "An important thing about subtraction is that it is in
-    some sense the 'reverse' of addition.  This means that you can
-    always check a subtraction by doing an addition.") (:p "If you
-    want to try this, click the left arrow key to go back in the
-    lesson and repeat the last few steps, while asking yourself this
-    question: what must I " (:strong "add") " to the second number to
-    get the first?"))
-    :step (( :h1 "Important information") (:p "You don't have to think of
-    the numberline every time you do an addition or subtraction, but
-    if a sum seems difficult, it can be very useful to think about it
-    with the help of the numberline. You will also find the numberline
-    very useful when you learn about negative numbers, fractions and
-    other numbers."))
+    :step ( (:p #.(lang '((american-english "An important thing about subtraction is that it is in some sense the 'reverse' of addition.  This means that you can always check a subtraction by doing an addition.")
+                          (danish "Noget vigtigt ved subtraktion er at det er på en måde det 'omvendte' ad addition.  Det betyder at du altid kan kontrollere om en subtraktion er korrekt ved at lave den omvendte addition.")))) 
+            (:p #.(lang '((american-english "If you want to try this, click the left arrow key to go back in the lesson and repeat the last few steps, while asking yourself this question: what must I ")
+                          (danish "Hvis du gerne vil prøve dette, klik på venstre pil for at gå tilbage i lektionen og gentag de sidste par skridt, mens du stiller dig selv følgende spørgsmål: hvad skal Jeg ")))
+                (:strong #.(lang '((american-english "add")
+                                   (danish "addere")))) 
+                #.(lang '((american-english " to the second number to get the first?")
+                          (danish " til det andet tal for at få det første tal?")))))
+    :step (( :h1 #.(lang '((american-english "Important information")
+                           (danish "Vigtig information"))))
+           (:p #.(lang '((american-english "You don't have to think of the numberline every time you do an addition or subtraction, but if a sum seems difficult, it can be very useful to think about it with the help of the numberline. You will also find the numberline very useful when you learn about negative numbers, fractions and other numbers.")
+                         (danish "Du behøver ikke at tænke på tallinine hver gang du lave en addition eller subtraktion, men hvis et problem virker besværligt, kan det tit hjælpe at bruge tallinien til hjælp.  Du vil også finde tallinien nyttigt, når du senere skal lær om negative tal, brøker, og andre slags tal.")))))
 
     :stepif (special-lesson-module
-             ((:p "That completes the first lesson.  After the next step,
-     which is a summary of this lesson, you will come to the games.
-     There are two games: One for learning to add and one for learning
-     to subtract. The adding game comes first.")
-     (:p "There are 2 goals for each game:")
-     (:ul (:li (:strong "You must") " get all the questions right with
-     no mistakes at least once."))
-              (:p "When you have achieved the first goal, you will
-     automatically come to the next part of the program.")
+             ((:p #.(lang '((american-english "That completes the first lesson.  After the next step,  which is a summary of this lesson, you will come to the games.
+     There are two games: One for learning to add and one for learning to subtract. The adding game comes first.")
+                            (danish "Det var første lektion.  Efter det næste skridt, som er en opsamling fra lektionen, vil du komme til spillene.  Der er to spil.  En til addition og en til subtraktion."))))
+     (:p #.(lang '((american-english "There are 2 goals for each game:")
+                   (danish "Der er to mål for hvert spil."))))
+     (:ul (:li (:strong #.(lang '((american-english "You must")
+                                  (danish "Du skal")))) 
+               #.(lang '((american-english " get all the questions right with no mistakes at least once.")
+                         (danish " få alle spørgsmål rigtigt med ingen fejl mindst en gang.")))))
+              (:p #.(lang '((american-english "When you have achieved the first goal, you will automatically come to the next part of the program.")
+                            (danish "Når du har opnået første mål, vil du automatisk komme videre til næste del af programmet."))))
               (:ul
-               (:li "Once you can get them all right, " (:strong "you
-          can choose") " to play again as many times as
-          you like, to see how fast you can do it.  A button will
-          appear on your page which you can press to play again."))
+               (:li #.(lang '((american-english "Once you can get them all right, ")
+                              (danish "Efter du har fået alle rigtigt mindst en gang, ")))(:strong #.(lang '((american-english "you can choose")
+                                                                                                             (danish "Kan du vælge at ")))) 
+                              #.(lang '((american-english " to play again as many times as you like, to see how fast you can do it.  A button will appear on your page which you can press to play again.")
+                                        (danish "spille så mange gange du vil, for at  se hvor hurtigt du kan svare på alle spørgsmål.")))))
      
-     (:p "You might have to play the games many times before you
-     achieve the first goal.")))
+     (:p #.(lang '((american-english "You might have to play the games many times before you achieve the first goal.")
+                   (danish "Måske er det nødvendigt at spille mange gange før du får dem alle rigtigt, første gang."))))))
     
     :summary ((funcall numberline "mod-digs-nat-nl" -20 20 1 "#000000" 0.125)
-              ((:h1 "Summary") (:ul (:li "With addition, you can take
-    either number first.  Order doesn't matter") (:li "If you have
-    more than 2 numbers to add, you can first add any 2 of them
-    together.") (:li "With subtraction, order matters, and you must
-    subtract from the first number.") (:li "Subtraction is a kind
-    of " (:emph "reverse") " of addition.  You can use this fact to
-    check a subtraction")
-    (:li "Two basically different ways of using numbers are:"
-         (:ul (:li (:strong "Counting") "
-         whole " (:strong "things.") " In this case, we can think
-         of " (:strong "pairing") " the thing with it's numberline
-         number.")
-              (:li (:strong "Measuring") " amounts of something. This
-              is best thought of as " (:strong "lengths") " or
-              distances on the numberline."))))
-    (:p "Press the right arrow to end this lesson.")))
+              ((:h1 #.(lang '((american-english "Summary")
+                              (danish "Opsamling")))) 
+               (:ul (:li #.(lang '((american-english "With addition, you can take either number first.  Order doesn't matter")
+                                   (danish "Med addition, kan du frit vælge hvilke tal du tager først. Rækkefølgen er ligegyldigt.")))) 
+                    (:li #.(lang '((american-english "If you have more than 2 numbers to add, you can first add any 2 of them together.")
+                                   (danish "Hvis du har flere end 2 tal, betyder det ikke noget hvilke 2 du først addere.")))) 
+                    (:li #.(lang '((american-english "With subtraction, order matters, and you must subtract from the first number.")
+                                   (danish "Med subtraktion er rækkefølgen vigtigt, og du skal huske at subtrahere fra det første tal.")))) 
+                    (:li #.(lang '((american-english "Subtraction is a kind of ")
+                                   (danish "Subtraktion er på en måde det ")))
+                         (:emph #.(lang '((american-english "reverse")
+                                          (danish "omvendte")))) 
+                         #.(lang '((american-english " of addition.  You can use this fact to check a subtraction")
+                                   (danish " af addtion.  Du kan bruge dette til at kontrollere en subtraktion."))))
+                    (:li #.(lang '((american-english "Two basically different ways of using numbers are:")
+                                   (danish "To grundlæggende forskellige måde at bruge tal på er:")))
+                         (:ul (:li (:strong #.(lang '((american-english "Counting")
+                                                      (danish "At tælle")))) 
+                                   #.(lang '((american-english " whole ")
+                                             (danish " hele ")))
+                                   (:strong #.(lang '((american-english "things.")
+                                                      (danish "ting."))))
+                                   #.(lang '((american-english " In this case, we can think of ")
+                                             (danish " I dette tilfælde, kan vi forestille os at vi ")))
+                                   (:strong #.(lang '((american-english "pairing")
+                                                      (danish "stille tingen i et par"))))
+                                   #.(lang '((american-english " the thing with it's numberline number.")
+                                             (danish " med dets tallinie tal.")))
+                              (:Li (:strong #.(lang '((american-english "Measuring")
+                                                      (danish "At måle")))) 
+                                   #.(lang '((american-english " amounts of something. This is best thought of as ")
+                                             (danish " mængder ad noget.  Så kan vi forestille os ")))
+                                   (:strong #.(lang '((american-english "lengths")
+                                                      (danish "længder")))) 
+                                   #.(lang '((american-english " or distances on the numberline.")
+                                             (danish " eller afstande på tallinien")))))))
+               (:p #.(lang '((american-english "Press the right arrow to end this lesson.")
+                             (danish "Klik på hørepil for at afslutte lektionen.")))))))
     :complete? t)

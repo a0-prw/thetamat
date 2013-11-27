@@ -36,92 +36,142 @@
 '(mod-digs-nat))
 
 (define-module 'mod-basic-sub-nat
-    "Basic Subtraction"
-    "Continued introduction to the decimal position system with
+    '((american-english "Basic Subtraction")
+      (danish "Grundlæggende Subtraktion"))
+  '((american-english "Continued introduction to the decimal position system with
 subtraction  of numbers less than 20 with results a
-natural number (no regrouping of higher powers of ten, aka borrowing)."
+natural number (no regrouping of higher powers of ten, aka borrowing).")
+    (danish "Fortsat introduktion til titalssystemet, med subtraktion af tal under 20 uden behov for tier-omgruppering."))
 '(mod-basic-add-nat))
 
 (define-module 'mod-position-sys1-nat
-    "Addition and Subtraction - 1"
-    "Addition and subtraction of numbers less than 100 with results a
-natural number (no regrouping of higher power of 10, aka borrowing)."
+    '((american-english "Addition and Subtraction - 1")
+      (danish "Addition og Subtraktion - 1"))
+  
+  '((american-english "Addition and subtraction of numbers less than 100 with results a
+natural number (no regrouping of higher power of 10, aka borrowing).")
+    (danish "Addition og subtraktion af tal under 100 med resultat et naturligt tal uden behov for tier-omgruppering."))
+  
 '(mod-basic-sub-nat))
 
 (define-module 'mod-sub-position-sys-nat
-    "Addition and Subtraction - 2"
-    "Subtraction (with regrouping of higher power of 10) of
+    '((american-english "Addition and Subtraction - 2")
+      (danish "Addition og Subtraktion - 2"))
+
+  '((american-english "Subtraction (with regrouping of higher power of 10) of
 numbers less than 100 and addition of natural numbers less than 1000,
-with results a natural number." 
+with results a natural number.")
+    (danish "Subtraktion med behov for tier-omgruppering af naturlige tal under 100 og addition af naturlige tal under 1000"))
+
     '(mod-position-sys1-nat))
 
 (define-module 'mod-position-sys2-nat
-    "Addition and subtraction - 3"
-    "Addition of natural numbers less than 10000
+    '((american-english "Addition and subtraction - 3")
+      (danish "Addition og Subtraktion - 3"))
+
+  '((american-english "Addition of natural numbers less than 10000
 of 3 terms. Subtraction of natural numbers 
-less than 1000. Result a natural number."
+less than 1000. Result a natural number.")
+    (danish "Addition af tre naturlige tal under 10000."))
+
   '(mod-sub-position-sys-nat))
 
 (define-module 'mod-basic-int
-    "Negative Numbers - 1"
-    "Addition of small integers with result possibly negative."
+    '((american-english "Negative Numbers - 1")
+      (danish "Negative Tal - 1"))
+
+  '((american-english "Addition of small integers with result possibly negative.")
+    (danish "Addition af små hele tal med resultat muligvis negativt."))
+
   '(mod-position-sys2-nat))
 
 (define-module 'mod-table
-    "Basic Multiplication"
-    "Multiplication of natural numbers less than 11."
+    '((american-english "Basic Multiplication")
+      (danish "Grundlæggende Multiplikation"))
+
+  '((american-english "Multiplication of natural numbers less than 11.")
+    (danish "Multiplikation af naturlige tal under 11."))
+
   '(mod-basic-int)
   :special-module t)
 
 (define-module 'mod1-mult
-    "Multiplication - 1"
-    "The Distributive law of multiplication over addition: 
-Multiplication of 1-digit by 2-digit natural numbers"
+    '((american-english "Multiplication - 1")
+      (danish "Multiplikation - 1"))
+
+  '((american-english "The Distributive law of multiplication over addition: 
+Multiplication of 1-digit by 2-digit natural numbers")
+    (danish "Den distributive lov af multiplikation over addition: Multiplikation af 1-cifer med 2-cifre naturlige tal."))
+
   '(mod-table))
 
 (define-module 'mod2-int
-    "Negative Numbers - 2"
-  "Negative numbers: Multiplication.  The rules for
-multiplying mixed-sign and negative digits."
+    '((american-english "Negative Numbers - 2")
+      (danish "Negative tal - 2"))
+
+  '((american-english "Negative numbers: Multiplication.  The rules for
+multiplying mixed-sign and negative digits.")
+    (danish "Negative Tal: Multiplikation.  Lovene for multiplikation af positive og negative tal."))
+
   '(mod1-mult))
 ;;" and multiplication of signed digits."
 
 ;;FIXME 2d-1d division
 
 (define-module 'mod2-mult
-    "Multiplication - 2"
-    "Multiplication of 2-digit by 2-digit natural numbers and integers"
+    '((american-english "Multiplication - 2")
+      (danish "Multiplikation - 2"))
+
+  '((american-english "Multiplication of 2-digit by 2-digit natural numbers and integers")
+    (danish "Multiplikation af 2-cifrede naturlige tal med 2-cifrede naturlige tal og hele tal."))
+
   '(mod2-int))
 
 (define-module 'mod1-div-int
     "Division - 1"
-  "Division of integers by integers with result an integer."
+  '((american-english "Division of integers by integers with result an integer.")
+    (danish "Division af hele tal med et helt tal med resultat et helt tal"))
+
   '(mod2-mult))
 
 (define-module 'mod2-div-int
     "Division - 2"
-  "Long division method: Division of integers by integers with result an integer."
+  '((american-english "Long division method: Division of integers by integers with result an integer.")
+    (danish "En metode til lang division:  Division af hele tal med resultat et helt tal."))
+
   '(mod1-div-int))
 
 ;;FIXME rational-numbers module for decimal representations and fractions
 
 (define-module 'mod-basic-dec
-    "Signed Decimals"
-    "Addition and subtraction of signed decimals
-less than 10."
+    '((american-english "Signed Decimals")
+      (danish "Positive og negative Decimaltal"))
+
+  '((american-english "Addition and subtraction of signed decimals
+less than 10.")
+    (danish "Addition og subtraktion af positive og negative decimale"))
+
   '(mod2-div-int))
 
 (define-module 'mod-add/sub-pfrac
-    "Proper Fractions"
-    "Addition and subtraction of proper fractions with 
-denominator a digit"
+    '((american-english "Proper Fractions")
+      (danish "Ægte Brøker"))
+
+  '((american-english "Addition and subtraction of proper fractions with 
+denominator a digit")
+    (danish "Addition og subtraktion af ægte brøker med nævneren et ciffer"))
+
   '(mod-basic-dec))
 
 ;;Fixme multiplication of fractions
 
 (define-module 'mod3-mult
-    "Multiplication - 3"
-    "Multiplication of small (2-digit) signed decimals"
+    '((american-english "Multiplication - 3")
+      (danish "Multiplikation - 3"))
+
+  '((american-english "Multiplication of small (2-digit) signed decimals")
+    (danish "Multiplikation af positive og negative decimale (med tiendedele."))
+
   '(mod-add/sub-pfrac))
 
 
