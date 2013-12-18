@@ -601,44 +601,102 @@ the extra ten which came from adding the units?")
                          #.(lang '((american-english " the digits are in the number")
                                    (danish " ciffrene befinder sig i tallet")))))
 
-    :step ((:p "Before we go on to look at how to
-    add " (:q "put-together-numbers") " we need to be sure of 2
-    things:" (:ul (:li "Do we know what the digits in a number
-    are?") (:li "Do we know what the digits in the number
-    mean?")) (:p "In the next few steps, you will be practising the
+    :step ((:p #.(lang '((american-english "Before we go on to look at how to
+    add ")
+                         (danish "Før vi ser på hvordan man kan addere ")))
+               (:q #.(lang '((american-english "put-together-numbers")
+                             (danish "sammensatte tal")))) 
+               #.(lang '((american-english " we need to be sure of 2
+    things:")
+                         (danish " er vi nødt til at være sikre på to ting:")))
+               (:ul (:li #.(lang '((american-english "Do we know what the digits in a number
+    are?")
+                                   (danish "Ved vi hvad ciffrene i et tal er?")))) 
+                    (:li #.(lang '((american-english "Do we know what the digits pposition in the number
+    mean?")
+                                   (danish "Ved vi hvad ciffrenes position i tallet betyder?"))))) 
+               (:p #.(lang '((american-english "In the next few steps, you will be practising the
     first thing we need to know about.  You will be asked a question
-    about digits in a number.") (:p "Use the keyboard to write the
-    digit.") (:p "You must get them all right before you can continue.
-    If you make a mistake you can correct it by just writing a new
-    digit.")))
+    about digits in a number.")
+                             (danish "Så i de næste skærme, vil du
+    øve den første ting du skal ved.  Du vil blive stillet et
+    spørgsmål om ciffrene i et tal")))) 
+               
+               (:p #.(lang '((american-english "Use the keyboard to write
+    the digit.")
+                             (danish "Brug dit keyboard for at skrive cifret.")))) 
+               (:p #.(lang '((american-english "You must get them all right before you can
+    continue.  If you make a mistake you can correct it by just
+    writing a new digit.")
+                             (danish "Du skal have alle rigtige før du
+                             kan fortsætte.  Hvis du lave en fejl,
+                             skal du bare rette den, ved at skrive et
+                             nyt ciffer."))))))
 
     :display (funcall 
               prepare-qnr-responses
-              "What are the digits in 10?"
+              #.(lang '((american-english "What are the digits in 10?")
+                        (danish "Hvad er ciffrene i 10?")))
               (array
-               (array "qnr1" "1" " is a digit in 10." " is not a digit in 10.")
-               (array "qnr2" "0" " is a digit in 10." " is not a digit in 10.")))
+               (array "qnr1" "1" #.(lang '((american-english " is a digit in 10.")
+                                           (danish " er et ciffer i 10.")))
+                      #.(lang '((american-english " is not a digit in 10.")
+                                (danish " er ikke et ciffer i 10."))))
+               (array "qnr2" "0" #.(lang '((american-english " is a digit in 10.")
+                                           (danish " er et ciffer i 10.")))
+                      #.(lang '((american-english " is not a digit in 10.")
+                                (danish " er ikke et ciffer i 10."))))))
     :display (funcall 
               prepare-qnr-responses
               "What are the digits in 18?"
               (array
-               (array "qnr1" "1" " is a digit in 18." " is not a digit in 18.")
-               (array "qnr2" "8" " is a digit in 18." " is not a digit in 18.")))
+               (array "qnr1" "1" #.(lang '((american-english " is a digit in 18.")
+                                           (danish " er et ciffer i 18.")))
+                      #.(lang '((american-english " is not a digit in 18.")
+                                (danish " er ikke et ciffer i 18."))))
+               (array "qnr2" "8" #.(lang '((american-english " is a digit in 18.")
+                                           (danish " er et ciffer i 18.")))
+                      #.(lang '((american-english " is not a digit in 18.")
+                                (danish " er ikke et ciffer i 18."))))))
     :display (funcall 
               prepare-qnr-responses
-              "What are the digits in 7258?"
+              #.(lang '((american-english "What are the digits in 7258?")
+                        (danish "Hvad er ciffrene i 7258")))
               (array
-               (array "qnr1" "7" " is a digit in 7258." " is not a digit in 7258.")
-               (array "qnr2" "2" " is a digit in 7258." " is not a digit in 7258.")
-               (array "qnr3" "5" " is a digit in 7258." " is not a digit in 7258.")
-               (array "qnr4" "8" " is a digit in 7258." " is not a digit in 7258.")
+               (array "qnr1" "7" #.(lang '((american-english " is a digit in 7258.")
+                                           (danish " er et ciffer i 7258")))
+                      #.(lang '((american-english " is not a digit in 7258.")
+                                (danish " er ikke et ciffer i 7258."))))
+               (array "qnr2" "2" #.(lang '((american-english " is a digit in 7258.")
+                                           (danish " er et ciffer i 7258")))
+                      #.(lang '((american-english " is not a digit in 7258.")
+                                (danish " er ikke et ciffer i 7258."))))
+               (array "qnr3" "5" #.(lang '((american-english " is a digit in 7258.")
+                                           (danish " er et ciffer i 7258")))
+                      #.(lang '((american-english " is not a digit in 7258.")
+                                (danish " er ikke et ciffer i 7258."))))
+               (array "qnr4" "8" #.(lang '((american-english " is a digit in 7258.")
+                                           (danish " er et ciffer i 7258")))
+                      #.(lang '((american-english " is not a digit in 7258.")
+                                (danish " er ikke et ciffer i 7258."))))
                ))
 
-    :step ((:p "You know what the digits are now, in any number that
+    :step ((:p #.(lang '((american-english "You know what the digits are now, in any number that
     you see.  But what about what they mean?  We said before that the
-    digit's " (:strong "meaning") " depends on " (:strong "where") "
-    it is placed in the " (:q "put-together-number") ".") (:p "What
-    do we mean by this?"))
+    digit's ")
+                         (danish "Nu ved du hvad ciffrene i et hvilket som helst tal er.  Men hvad betyder de? Vi sagde før at ciffrenes ")))
+               #.(lang '((american-english (:strong "meaning")
+                          (danish "betydning"))))
+               #.(lang '((american-english " depends on ")
+                         (danish " afhænger af ")))
+               (:strong #.(lang '((american-english "where")
+                                  (danish "hvor")))) 
+               #.(lang '((american-english " it is placed in the ")
+                         (danish " den er placeret i det ")))
+               (:q #.(lang '((american-english "put-together-number")
+                             (danish "sammensatte tal")))) ".") 
+           (:p #.(lang '((american-english "The next pages explain what we mean by this?")
+                         (danish "De næste skærme forklarer hvad vi mener med dette?")))))
 
     :step ((:p "You already know that a single digit by itself just
     means " (:strong "that") " many units, or that place on the
