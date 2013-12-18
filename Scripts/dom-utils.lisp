@@ -1379,7 +1379,8 @@
              (funcall add-arc ,fromname "sum-completed" "completed"
                       (lambda ()
                         (let ((gnew (dgebid "tutor-ic-new"))
-                              (butt (make-button "tutor-new-sum" "New" 
+                              (butt (make-button "tutor-new-sum" #.(lang '((american-english "New")
+                                                                           (danish "Ny")))
                                                  ("click" tutor-new-problem))))
                           (append-child gnew butt)
                           (funcall place-string-in-selected-cell dig))))))))
@@ -1732,7 +1733,8 @@
                         ,res))));;)
      (let ((,top (doc-get-el-by-id "new-gmenu")))
        (if (not ,top)
-           (alert "Please open your Groups Menu first!")
+           (alert #.(lang '((american-english "Please open your Groups Menu first!")
+                            (danish "Abn venligst din Gruppe Menu først!"))))
            (let ((,grs (get-elements-by-tag-name 
                            (doc-get-el-by-id "new-gmenu-content") "ul")))
              (if (not (zerop (length ,grs)))

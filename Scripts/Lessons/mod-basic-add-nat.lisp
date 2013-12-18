@@ -77,7 +77,8 @@
                           (qname (strcat vname ":q"))
                           (ques (funcall use-var qname))
                           (ans (funcall use-var (strcat vname ":a")))
-                          (jq (strcat "The sum is $" ques "$."))
+                          (jq (strcat #.(lang '((american-english "The sum is $")
+                                                (danish "Summen er $")))ques "$."))
                           (t1 (funcall get-inline-term ques 0))
                           (t2 (funcall get-inline-term ques 2))
                           (t1units (funcall get-digit t1 0))
@@ -92,9 +93,11 @@
                           (qholder (plain-div)))
                      (append-para-text qholder jq true)
                      (funcall digit-plus-input-div 
-                              carry qname qholder t1 t2 aunits "units")
+                              carry qname qholder t1 t2 aunits #.(lang '((american-english "units")
+                                                                         (danish "etterne"))))
                      (funcall digit-plus-input-div 
-                              carry qname qholder t1 t2 atens "tens")
+                              carry qname qholder t1 t2 atens #.(lang '((american-english "tens")
+                                                                        (danish "tierne"))))
                      (funcall digit-plus-input-div 
                               carry qname qholder t1 t2 ans)
                      (prune-tree-from-nth ltd 0)
@@ -111,15 +114,20 @@
                           (max (length ans)) (sz max)
                           (inp (make-text-input-element max sz))
                           (txt1 (if placename
-                                    (strcat "What is the result of adding the "
-                                            placename " digits of the sum"
+                                    (strcat #.(lang '((american-english "What is the result of adding the ")
+                                                      (danish "Hvad er resultatet af, at addere ")))
+                                            placename #.(lang '((american-english " digits of the sum")
+                                                                (danish " af summen")))
                                             (if (and carry
-                                                     (string= placename "tens"))
-                                                ", remembering to add
-the extra ten which came from adding the units?"
+                                                     (string= placename #.(lang '((american-english "tens")
+                                                                                  (danish "tierne")))))
+                                                #.(lang '((american-english ", remembering to add
+the extra ten which came from adding the units?")
+                                                          (danish ". Husk at addere den ekstra tier som kom fra addition af etterne.")))
                                                 "?"))
-                                    "What is the final result of the
-                                               sum?"))
+                                    #.(lang '((american-english "What is the final result of the
+                                               sum?")
+                                              (danish "Hvad er den endelige resultat af summen?")))))
                           ;;(txt2 (strcat " " t1 " and " t2 "?  "))
                           (handler (funcall make-digit-plus-handler 
                                             vname
@@ -136,28 +144,6 @@ the extra ten which came from adding the units?"
                      (append-child div inp)
                      (append-child holder div)
                      holder))))
-
-             ;; digit-plus-result-input-div ;; Slot
-             ;; (with-slots (snc) qnr-tmp
-             ;;   (with-slots (tot curr eh) snc
-             ;;     (lambda (holder t1 t2 ans)
-             ;;       (let* ((div (div-class "digit-plus-input"))
-             ;;              (id  "digit-plus-result")
-             ;;              (max (length ans)) (sz max)
-             ;;              (inp (make-text-input-element max sz))
-             ;;              (txt "What is the final result of the sum?")
-             ;;              (handler (funcall make-digit-plus-handler ans true)))
-             ;;         (setf (ps:getprop eh id) handler)
-             ;;         (set-attribute inp "id" id)
-             ;;         (add-event-no-capture inp "keydown" 
-             ;;                               handler)
-             ;;         (add-event-no-capture inp "click" grab-focus)
-             ;;         (append-para-text div txt1)
-             ;;         ;;(append-para-text div txt2)
-             ;;         (append-child div inp)
-             ;;         (append-child holder div)
-             ;;         holder))
-
 
              make-digit-plus-handler ;; Slot
              (with-slots (snc) qnr-tmp
@@ -180,13 +166,16 @@ the extra ten which came from adding the units?"
                                      (prune-tree-from-nth pn 2)
                                      (append-text txtdiv 
                                                   (if isresult 
-                                                      "Correct! Well done." 
-                                                      (strcat "Correct!
-                                                      So the "
-                                                      placename "
+                                                      #.(lang '((american-english "Correct! Well done.")
+                                                                (danish "Korrekt! Flot.")))
+                                                      (strcat #.(lang '((american-english "Correct!
+                                                      So the ")
+                                                                        (danish "Korrekt! Så")))
+                                                      placename #.(lang '((american-english "
                                                       digit in the
                                                       final answer
-                                                      is " (funcall
+                                                      is ")
+                                                                          (danish " i den endelige resultat er ")))(funcall
                                                       get-digit input
                                                       0) ".")))
                                      (append-child pn txtdiv)
@@ -205,9 +194,11 @@ the extra ten which came from adding the units?"
                                          (txtdiv (plain-div)))
                                      (prune-tree-from-nth pn 2)
                                      (append-text txtdiv (strcat 
-                                                          "No, " 
+                                                          #.(lang '((american-english "No, ")
+                                                                    (danish "Nej, ")))
                                                           input 
-                                                          " is wrong. Try again!"))
+                                                          #.(lang '((american-english " is wrong. Try again!")
+                                                                    (danish " er forkert. Prøv igen!")))))
                                      (append-child pn txtdiv)
                                      (setf (value this) "")))
                                (setf (value this) input) )))))))
@@ -224,9 +215,10 @@ the extra ten which came from adding the units?"
                      (add-event-no-capture inp "keydown" find-number-name-handler)
                      (add-event-no-capture inp "click" grab-focus)
                      (append-text inpholder "one")
-                     (append-para-text ltd "You can try this now.
+                     (append-para-text ltd #.(lang '((american-english "You can try this now.
                      Insert or remove zeros in the box below to write
                      bigger or smaller numbers from 1 to a billion.")
+                                                     (danish "Du kan prøve det dette nu.  Indsæt eller fjern nullere i kassen nedenunder for at skrive større eller mindre tal fra 1 til en milliard."))))
                      (append-child ltd inpholder)
                      (focus inp)
                      (setf (selection-end inp) (length (value inp))
@@ -237,10 +229,26 @@ the extra ten which came from adding the units?"
              find-number-name ;; Slot
              (lambda (parent input)
                (let* ((names
-                      (array "one" "ten" "one hundred"
-                             "one thousand" "ten thousand" "one hundred thousand"
-                             "one million" "ten million" "one hundred million"
-                             "one billion"))
+                      (array #.(lang '((american-english "one")
+                                       (danish "en"))) 
+                             #.(lang '((american-english "ten")
+                                       (danish "ti")))
+                             #.(lang '((american-english "one hundred")
+                                       (danish "et hundred")))
+                             #.(lang '((american-english "one thousand")
+                                       (danish "en tusind")))
+                             #.(lang '((american-english "ten thousand")
+                                       (danish "ti tusind")))
+                             #.(lang '((american-english "one hundred thousand")
+                                       (danish "en hundred tusind")))
+                             #.(lang '((american-english "one million")
+                                       (danish "en million")))
+                             #.(lang '((american-english "ten million")
+                                       (danish "ti million")))
+                             #.(lang '((american-english "one hundred million")
+                                       (danish "en hundred million")))
+                             #.(lang '((american-english "one billion")
+                                       (danish "en milliard")))))
                       (old (last-child parent))
                       (gnew (make-text-node 
                              (aref names (1- (length (value input)))))))
@@ -309,27 +317,6 @@ the extra ten which came from adding the units?"
                               (funcall (aref current-lesson current-lesson-text)))))
                             (ajax_refresh_mcq n callback))))
 
-             ;; multiple-choice-questions ;; Slot
-             ;; (lambda (msg mcarr)
-             ;;   (with-slots (qnr-tmp) ephemeral
-             ;;     (with-slots (eh) qnr-tmp
-             ;;     (if (string= from-direction "rtl")
-             ;;         (funcall previous-lesson-text)
-             ;;         (let ((ltd (doc-get-el-by-id "lesson-text-display"))
-             ;;               (container-div (div-class "multiple-choice"))
-             ;;               (form (create-element "form"))
-             ;;               (count 0))
-             ;;           (funcall remove-default-rl-handlers)
-             ;;           (prune-tree-from-nth ltd 0)
-             ;;           (setf qnr-tmp (ps:create total 0 correct 0))
-             ;;           (setf eh (ps:new (-object)))
-             ;;           (append-para-text container-div msg)
-             ;;           (dolist (part mcarr)
-             ;;             (funcall make-multiple-choice-part form part count)
-             ;;             (incf count))
-             ;;           (append-child container-div form)
-             ;;           (append-child ltd container-div))))))
-             
              make-multiple-choice-part ;; Slot
              (lambda (form parray control)
                (with-slots (qnr-tmp) ephemeral
@@ -346,8 +333,10 @@ the extra ten which came from adding the units?"
                      (append-para-text form ques)
                      (when (not-defined rightans)
                        (setf none true
-                             rightans "None of the other choices:"
-                             cresp "Yes, none of the other choices were correct."))
+                             rightans #.(lang '((american-english "None of the other choices:")
+                                                (danish "Ingen af de andre valgmuligheder:")))
+                             cresp #.(lang '((american-english "Yes, none of the other choices were correct.")
+                                             (danish "Korrekt. Ingen af de andre valgmuligheder er rigtige.")))))
                      (let ((div (funcall process-mc-button rightans cresp control true id-count)))
                        (push div bag)
                        (dolist (wrong wrongs)
@@ -361,7 +350,10 @@ the extra ten which came from adding the units?"
                          (let ((div 
                                 (funcall 
                                  process-mc-button
-                                 "None of the other choices:" "No, one of the other choices is correct."
+                                 #.(lang '((american-english "None of the other choices:")
+                                           (danish "Ingen af de andre valgmuligheder:")))
+                                 #.(lang '((american-english "No, one of the other choices is correct.")
+                                           (danish "Nej. En af de andre valgmuligheder er korrekt.")))
                                  control false id-count)))
                            (push div bag)))
                        (let ((partholder (div-class "mc-part"))
@@ -410,7 +402,8 @@ the extra ten which came from adding the units?"
                                (add-event-no-capture 
                                 but "click" (lambda (ev) (prevent-default ev))))
                              (setf (ps:getprop mcq current-lesson-text) true)
-                             (append-para-text ltd "Well done")
+                             (append-para-text ltd #.(lang '((american-english "Well done")
+                                                             (danish "Flot"))))
                              (funcall restore-default-rl-handlers))
                            (let* ((pn (parent-node this))
                                   (pholder (parent-node pn))
@@ -470,20 +463,6 @@ the extra ten which came from adding the units?"
                  (funcall (dots (aref (get-elements-by-tag-name ltd "input") 0)
                                 focus)))))))
 
-             ;; grab-focus ;; Slot
-             ;; (lambda (ev on)
-             ;;   (let ((target (if on on this)))
-             ;;     (funcall (dots target focus))
-             ;;     (let ((val (value target)))
-             ;;       (setf (value target) ""
-             ;;             (value target) val))))
-             ;; grab-focus ;; Slot
-             ;; (lambda (ev)
-             ;;   (funcall (dots this focus))
-             ;;   (let ((val (value this)))
-             ;;     (setf (value this) ""
-             ;;           (value this) val)))
-
              make-qnr-handler ;; Slot
              (lambda (gr br)
                (with-slots (qnr-tmp) ephemeral
@@ -514,23 +493,27 @@ the extra ten which came from adding the units?"
                                     (funcall restore-default-rl-handlers)
                                     (append-para-text 
                                      (doc-get-el-by-id "lesson-text-display")
-                                     "Well done."))
+                                     #.(lang '((american-english "Well done.")
+                                               (danish "Flot.")))))
                                   (remove-event-no-capture this "keydown" (ps:getprop eh id))                                
                                   (add-event-no-capture this "keydown" 
                                                         (lambda (ev) 
                                                           (funcall (dots ev prevent-default))))
                                   (remove-child-nodes-from-nth div 1)
-                                  (append-text div (strcat "    Yes, " entry gr))
+                                  (append-text div (strcat #.(lang '((american-english "    Yes, ")
+                                                                     (danish "    Ja, ")))entry gr))
                                   (let ((nex (next-sibling div)))
                                     (when (not (not-defined nex)) 
                                       (funcall (dots (first-child nex) focus)))))
                                  ((and (not (= is-ans -1)) ;is answer
                                      (not (= is-taken -1))) ;but has been taken
                                   (remove-child-nodes-from-nth div 1) ;;here
-                                  (append-text div (strcat "    Yes, but you have already chosen " entry))
+                                  (append-text div (strcat #.(lang '((american-english "    Yes, but you have already chosen ")
+                                                                     (danish "    Ja, men du har allerede valgt ")))entry))
                                 (setf (value input) ""))
                                  (t (remove-child-nodes-from-nth div 1)
-                                    (append-text div (strcat "    No, " entry br))
+                                    (append-text div (strcat #.(lang '((american-english "    No, ")
+                                                                       (danish "    Nej, ")))entry br))
                                     (setf (value input) "")))
                          )))))))
              ) ;;ends setf slots
@@ -543,24 +526,80 @@ the extra ten which came from adding the units?"
 
 (define-lesson mod-basic-add-nat
     
-    :step ((:p "The numbers 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9 are
-    called " (:strong "digits.") " There are ten digits in our number
-    system.  " (:q "Digit") " can also mean
-    " (:q "finger") ", so it is easy to remember." (:p "The digits are
+    :step ((:p #.(lang '((american-english "The numbers 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9 are
+    called ")
+                         (danish "Tallene 0, 1, 2, 3, 4, 5, 6, 7, 8, og 9 hedder ")))
+               (:strong #.(lang '((american-english "digits.")
+                                  (danish "cifre.")))) 
+               #.(lang '((american-english " There are ten digits in our number
+    system.  ")
+                         (danish " Der er ti cifre i vores talsystem.  ")))
+               (:strong #.(lang '((american-english "Digit")
+                             (danish "")))) 
+               #.(lang '((american-english " can also mean
+    ")
+                         (danish ""))) (:strong #.(lang '((american-english "finger")
+                                                          (danish ""))))
+                         #.(lang '((american-english ", so it is easy to remember.")
+                                   (danish "")))
+                         (:p #.(lang '((american-english "The digits are
     the numbers we can type on the keyboard with just one keypress.
     They are just one symbol each.  Most numbers need more than 1
-    digit to write.") (:p "When we are writing numbers, and reach 9,
-    we have to start " (:q "putting digits together") " to write
-    bigger numbers.  The way we " (:q "put digits together") " is
-    called the " (:strong "decimal position system."))))
+    digit to write.")
+                                       (danish "Cifrene er all de tal,
+                                       som vi kan skrive på et
+                                       keyboard med kun et tryk.  De
+                                       består af kun et symbol.  De
+                                       fleste tal kræver flere end et
+                                       ciffer at skrive."))))
+                         (:p #.(lang '((american-english "When we are writing numbers, and reach 9,
+    we have to start ")
+                                       (danish "Når vi skriver tal og når 9, er vi nødt til at ")))
+                             (:q #.(lang '((american-english "putting digits together")
+                                           (danish "sammensætte cifre")))) 
+                             #.(lang '((american-english " to write
+    bigger numbers.  The way we ")
+                                       (danish " for at skrive større tal.  Måden vi ")))
+                             (:q #.(lang '((american-english "put digits together")
+                                           (danish "sammensætter cifre")))) 
+                             #.(lang '((american-english " is called the ")
+                                       (danish " hedder ")))
+                             (:strong #.(lang '((american-english "decimal position system.")
+                                                (danish "titalssystemet.")))))))
 
-    :step ((:p (:q "Decimal") " in " (:strong "decimal position
-    system")  " means that it is based on the number 10, which is the
+    :step ((:p (:q #.(lang '((american-english "Decimal")
+                             (danish "Ti")))) 
+               #.(lang '((american-english " in ")
+                         (danish " i ")))
+               (:strong #.(lang '((american-english "decimal position
+    system")
+                                  (danish "titalssystemet"))))  
+               #.(lang '((american-english " means that it is based on the number 10, which is the
     first number that we need more than one digit to
-    write.") (:p (:q "Position") " in " (:strong "decimal position
-    system") " means that what the different digits in
-    a " (:q "put-together") " number " (:strong "mean") " depend
-    on " (:strong "where") " they are in the number"))
+    write.")
+                         (danish " betyder at det er baseret på tallet ti, som er det første tal, som vi behøver flere end et ciffer at skrive.")))) 
+           (:p (:strong #.(lang '((american-english "Position")
+                                  (danish "Titalssystemet")))) 
+               #.(lang '((american-english " in ")
+                         (danish " er også et ")))
+               (:strong #.(lang '((american-english "decimal position
+    system")
+                                  (danish "positionssystem")))) 
+               #.(lang '((american-english " means that what the different digits in
+    a ")
+                         (danish " og det betyder at hvad ")))
+               (:q #.(lang '((american-english "put-together")
+                             (danish "sammensatte"))))
+               #.(lang '((american-english " number ")
+                         (danish " tal ")))(:strong #.(lang '((american-english "mean")
+                                                              (danish "betyder")))) 
+                         #.(lang '((american-english " depend
+    on ")
+                                   (danish " afhænger af ")))
+                         (:strong #.(lang '((american-english "where")
+                                            (danish "hvor")))) 
+                         #.(lang '((american-english " the digits are in the number")
+                                   (danish " ciffrene befinder sig i tallet")))))
 
     :step ((:p "Before we go on to look at how to
     add " (:q "put-together-numbers") " we need to be sure of 2

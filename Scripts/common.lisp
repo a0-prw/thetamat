@@ -597,11 +597,14 @@
           (let* ((panel (doc-get-el-by-id "right"))
                  (current (doc-get-el-by-id "xrecord"))
                  (xrecel (div-id-class "xrecord" "pupil-info"))
-                 (tot (make-xrecord-display "total" "xrec-info" "Total: " total))
+                 (tot (make-xrecord-display "total" "xrec-info" #.(lang '((american-english "Total: ")
+                                                                          (danish "I Alt")))total))
                  (correct (make-xrecord-display 
-                           "correct" "xrec-info" "Correct: " right))
+                           "correct" "xrec-info" #.(lang '((american-english "Correct: ")
+                                                           (danish "Korrekt")))right))
                  (incorrect (make-xrecord-display
-                             "incorrect" "xrec-info" "Incorrect: " wrong)))
+                             "incorrect" "xrec-info" #.(lang '((american-english "Incorrect: ")
+                                                               (danish "Forkert")))wrong)))
             (append-child xrecel tot)
             (append-child xrecel correct)
             (append-child xrecel incorrect)
@@ -706,9 +709,11 @@
         (alert (strcat "Input error: " 
                        content
                        (ps:lisp 
-                        (format nil "~%is undefined in this context.~%"))
+                        (format nil #.(lang '((american-english "~%is undefined in this context.~%")
+                                              (danish "~%giver ikke mening her.~%")))))
                        (ps:lisp
-                        (format nil "~%Please change your answer.")))))
+                        (format nil #.(lang '((american-english "~%Please change your answer.")
+                                              (danish "~%Prøv et andet svar."))))))))
             
       (defun set-caption (wonsc)
 	;;(hide-caption)
